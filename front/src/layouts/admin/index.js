@@ -8,7 +8,7 @@ import { SidebarContext } from "contexts/SidebarContext";
 import React, { useState } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import routes from "routes.js";
-
+import { useEffect } from "react";
 // Custom Chakra theme
 export default function Dashboard(props) {
   const { ...rest } = props;
@@ -16,6 +16,9 @@ export default function Dashboard(props) {
   const [fixed] = useState(false);
   const [toggleSidebar, setToggleSidebar] = useState(false);
   // functions for changing the states from components
+  
+  
+
   const getRoute = () => {
     return window.location.pathname !== "/admin/full-screen-maps";
   };

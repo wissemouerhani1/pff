@@ -13,8 +13,7 @@ module.exports.signUp = async(req,res)=>{
         password ,
         email,
         phone,
-        cin,
-        role
+        cin
       } = req.body;
 
       const isExisteUser =   await User.findOne({ where: { email }});
@@ -33,7 +32,7 @@ module.exports.signUp = async(req,res)=>{
         email,
         phone,
         cin,
-        role
+        role:'admin'
       });
       return res.json(user.id)  
  } catch (error) {

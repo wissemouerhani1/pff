@@ -30,7 +30,7 @@ module.exports.createDriver = async(req,res)=>{
         phone,
         vehicule_code,
         cin,
-        role:'employe'
+        role:'driver'
       });
       return res.json(user.id)  
  } catch (error) {
@@ -87,7 +87,7 @@ module.exports.deleteDriver = async(req,res)=>{
 
       // Fetch all records from the model
       const records = await User.findAll({
-        where:{role:"employe"}
+        where:{role:"driver"}
       });
               res.json(records);
     } catch (error) {

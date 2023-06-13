@@ -28,7 +28,7 @@ module.exports.createUser = async(req,res)=>{
         email,
         phone,
         cin,
-        role:'user'
+        role:'customer'
       });
       return res.json(user.id)  
  } catch (error) {
@@ -85,7 +85,7 @@ module.exports.deleteUser = async(req,res)=>{
 
       // Fetch all records from the model
       const records = await User.findAll({
-        where:{role:"user"}
+        where:{role:"customer"}
       });
           res.json(records);
     } catch (error) {

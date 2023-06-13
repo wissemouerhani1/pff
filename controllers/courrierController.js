@@ -31,7 +31,7 @@ module.exports.createEmploye = async(req,res)=>{
       phone,
       type,
       prix,
-     role:'employe'
+     role:'courrier'
       });
       return res.json(user.id)  
  } catch (error) {
@@ -88,7 +88,7 @@ module.exports.deleteCourrier = async(req,res)=>{
 
       // Fetch all records from the model
       const records = await User.findAll({
-        where:{role:"employe"}
+        where:{role:"courrier"}
       });
           res.json(records);
     } catch (error) {

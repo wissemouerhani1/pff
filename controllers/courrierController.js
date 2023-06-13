@@ -4,12 +4,14 @@ const {isPasswordAlphanumeric,hashPassword,VerifPassword} = require("../helper/h
 module.exports.createEmploye = async(req,res)=>{
  try {
       const {
+        courrierID,
         name,
         last_name ,
-        password ,
-        email,
+        gouvernerat,
+        adresse,
         phone,
-        cin
+        type,
+        prix
       } = req.body;
 
       const isExisteUser =   await User.findOne({ where: { email }});
@@ -19,16 +21,17 @@ module.exports.createEmploye = async(req,res)=>{
       if (!isPasswordAlphanumeric(password)){
           return res.status(400).json({message:"password should be Alphanumeric"})
       }
-
-      const hashedPassword = await hashPassword(password)
       const user = await User.create({
-        name,
-        last_name ,
-        password:hashedPassword ,
-        email,
-        phone,
-        cin,
-        role:'employe'
+
+      courrierID,
+      name,
+      last_name ,
+      gouvernerat,
+      adresse,
+      phone,
+      type,
+      prix,
+     role:'employe'
       });
       return res.json(user.id)  
  } catch (error) {
@@ -38,7 +41,7 @@ module.exports.createEmploye = async(req,res)=>{
 
 }
 
-module.exports.deleteEmploye = async(req,res)=>{
+module.exports.deleteCourrier = async(req,res)=>{
     try {
         const userID =req.params.id
         User.destroy({
@@ -46,7 +49,7 @@ module.exports.deleteEmploye = async(req,res)=>{
                 id:userID
             }
         })
-         return res.json("employe deleted")  
+         return res.json("Courrier deleted")  
     } catch (error) {
        throw new Error(error)
     }
@@ -55,7 +58,7 @@ module.exports.deleteEmploye = async(req,res)=>{
    }
    
    
-   module.exports.UpdateEmploye = async (req, res) => {
+   module.exports.UpdateCourrier = async (req, res) => {
     const { id } = req.params;
        try {
       // Find the record to be updated
@@ -69,7 +72,7 @@ module.exports.deleteEmploye = async(req,res)=>{
     
         // Fetch the updated record
     
-        res.json("user updated ");
+        res.json("Courrier updated ");
       } else {
         res.status(404).json({ message: 'Record not found' });
       }
@@ -80,7 +83,7 @@ module.exports.deleteEmploye = async(req,res)=>{
   
 
   
-  module.exports.getAllEmploye = async (req, res) => {
+  module.exports.getAllCourrier = async (req, res) => {
     try {
 
       // Fetch all records from the model

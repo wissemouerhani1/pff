@@ -1,7 +1,7 @@
 const {User} = require("../database/models")
 const {isPasswordAlphanumeric,hashPassword,VerifPassword} = require("../helper/helper")
 
-module.exports.createEmploye = async(req,res)=>{
+module.exports.createUser = async(req,res)=>{
  try {
       const {
         name,
@@ -28,7 +28,7 @@ module.exports.createEmploye = async(req,res)=>{
         email,
         phone,
         cin,
-        role:'employe'
+        role:'user'
       });
       return res.json(user.id)  
  } catch (error) {
@@ -38,7 +38,7 @@ module.exports.createEmploye = async(req,res)=>{
 
 }
 
-module.exports.deleteEmploye = async(req,res)=>{
+module.exports.deleteUser = async(req,res)=>{
     try {
         const userID =req.params.id
         User.destroy({
@@ -46,7 +46,7 @@ module.exports.deleteEmploye = async(req,res)=>{
                 id:userID
             }
         })
-         return res.json("employe deleted")  
+         return res.json("user deleted")  
     } catch (error) {
        throw new Error(error)
     }
@@ -55,7 +55,7 @@ module.exports.deleteEmploye = async(req,res)=>{
    }
    
    
-   module.exports.UpdateEmploye = async (req, res) => {
+   module.exports.UpdateUser = async (req, res) => {
     const { id } = req.params;
        try {
       // Find the record to be updated
@@ -85,7 +85,7 @@ module.exports.deleteEmploye = async(req,res)=>{
 
       // Fetch all records from the model
       const records = await User.findAll({
-        where:{role:"employe"}
+        where:{role:"user"}
       });
           res.json(records);
     } catch (error) {

@@ -1,13 +1,14 @@
 const {User} = require("../database/models")
 const {isPasswordAlphanumeric,hashPassword,VerifPassword} = require("../helper/helper")
 
-module.exports.createEmploye = async(req,res)=>{
+module.exports.createDriver = async(req,res)=>{
  try {
       const {
         name,
         last_name ,
         password ,
         email,
+        vehicule_code,
         phone,
         cin
       } = req.body;
@@ -27,6 +28,7 @@ module.exports.createEmploye = async(req,res)=>{
         password:hashedPassword ,
         email,
         phone,
+        vehicule_code,
         cin,
         role:'employe'
       });
@@ -38,7 +40,7 @@ module.exports.createEmploye = async(req,res)=>{
 
 }
 
-module.exports.deleteEmploye = async(req,res)=>{
+module.exports.deleteDriver = async(req,res)=>{
     try {
         const userID =req.params.id
         User.destroy({
@@ -46,7 +48,7 @@ module.exports.deleteEmploye = async(req,res)=>{
                 id:userID
             }
         })
-         return res.json("employe deleted")  
+         return res.json("Driver deleted")  
     } catch (error) {
        throw new Error(error)
     }
@@ -55,7 +57,7 @@ module.exports.deleteEmploye = async(req,res)=>{
    }
    
    
-   module.exports.UpdateEmploye = async (req, res) => {
+   module.exports.UpdateDriver = async (req, res) => {
     const { id } = req.params;
        try {
       // Find the record to be updated
@@ -80,14 +82,14 @@ module.exports.deleteEmploye = async(req,res)=>{
   
 
   
-  module.exports.getAllEmploye = async (req, res) => {
+  module.exports.getAllDriver = async (req, res) => {
     try {
 
       // Fetch all records from the model
       const records = await User.findAll({
         where:{role:"employe"}
       });
-          res.json(records);
+              res.json(records);
     } catch (error) {
       res.status(500).json({ message: 'Error retrieving records', error });
     }

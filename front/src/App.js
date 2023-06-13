@@ -19,7 +19,7 @@ const App = () => {
     if(isLoggedIn){
         return (
             <>
-<Route path={`/admin`} component={AdminLayout}  />
+             <Route path={`/admin`} component={AdminLayout}  />
             <Route path={`/rtl`} component={RTLLayout} />
             <Redirect from='/' to='/admin' />
             </>

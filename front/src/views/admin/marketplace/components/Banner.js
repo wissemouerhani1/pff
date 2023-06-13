@@ -1,74 +1,108 @@
-import React from "react";
+import {
+  Flex,
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  InputGroup,
+  HStack,
+  InputRightElement,
+  Stack,
+  Button,
+  Heading,
+  Text,
+  useColorModeValue,
+  Link,
+} from '@chakra-ui/react';
+import { useState } from 'react';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
-// Chakra imports
-import { Button, Flex, Link, Text } from "@chakra-ui/react";
+export default function SignupCard() {
+  const [showPassword, setShowPassword] = useState(false);
 
-// Assets
-import banner from "assets/img/nfts/NftBanner1.png";
-
-export default function Banner() {
-  // Chakra Color Mode
   return (
     <Flex
-      direction='column'
-      bgImage={banner}
-      bgSize='cover'
-      py={{ base: "30px", md: "56px" }}
-      px={{ base: "30px", md: "64px" }}
-      borderRadius='30px'>
-      <Text
-        fontSize={{ base: "24px", md: "34px" }}
-        color='white'
-        mb='14px'
-        maxW={{
-          base: "100%",
-          md: "64%",
-          lg: "46%",
-          xl: "70%",
-          "2xl": "50%",
-          "3xl": "42%",
-        }}
-        fontWeight='700'
-        lineHeight={{ base: "32px", md: "42px" }}>
-        Discover, collect, and sell extraordinary NFTs
-      </Text>
-      <Text
-        fontSize='md'
-        color='#E3DAFF'
-        maxW={{
-          base: "100%",
-          md: "64%",
-          lg: "40%",
-          xl: "56%",
-          "2xl": "46%",
-          "3xl": "34%",
-        }}
-        fontWeight='500'
-        mb='40px'
-        lineHeight='28px'>
-        Enter in this creative world. Discover now the latest NFTs or start
-        creating your own!
-      </Text>
-      <Flex align='center'>
-        <Button
-          bg='white'
-          color='black'
-          _hover={{ bg: "whiteAlpha.900" }}
-          _active={{ bg: "white" }}
-          _focus={{ bg: "white" }}
-          fontWeight='500'
-          fontSize='14px'
-          py='20px'
-          px='27'
-          me='38px'>
-          Discover now
-        </Button>
-        <Link>
-          <Text color='white' fontSize='sm' fontWeight='500'>
-            Watch video
-          </Text>
-        </Link>
-      </Flex>
+      minH={'100vh'}
+      align={'center'}
+      justify={'center'}
+      bg={useColorModeValue('gray.50', 'gray.800')}>
+      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+        <Stack align={'center'}>
+          <Heading fontSize={'4xl'} textAlign={'center'}>
+            Create New User
+          </Heading>
+       
+        </Stack>
+        <Box
+          rounded={'lg'}
+          bg={useColorModeValue('white', 'gray.700')}
+          boxShadow={'lg'}
+          p={8}>
+          <Stack spacing={4}>
+            <HStack>
+              <Box>
+                <FormControl id="firstName" isRequired>
+                  <FormLabel>First Name</FormLabel>
+                  <Input type="text" />
+                </FormControl>
+              </Box>
+              <Box>
+                <FormControl id="lastName">
+                  <FormLabel>Last Name</FormLabel>
+                  <Input type="text" />
+                </FormControl>
+              </Box>
+              <Box>
+                <FormControl id="cin">
+                  <FormLabel>CIN</FormLabel>
+                  <Input type="text" />
+                </FormControl>
+              </Box>
+
+            </HStack>
+            <FormControl id="email" isRequired>
+              <FormLabel>Email address</FormLabel>
+              <Input type="email" />
+            </FormControl>
+            <Box>
+                <FormControl id="phonenumber">
+                  <FormLabel>Phone Number</FormLabel>
+                  <Input type="text" />
+                </FormControl>
+              </Box>
+            <FormControl id="password" isRequired>
+              <FormLabel>Password</FormLabel>
+              <InputGroup>
+                <Input type={showPassword ? 'text' : 'password'} />
+                <InputRightElement h={'full'}>
+                  <Button
+                    variant={'ghost'}
+                    onClick={() =>
+                      setShowPassword((showPassword) => !showPassword)
+                    }>
+                    {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+            </FormControl>
+            <Stack spacing={10} pt={2}>
+              <Button
+                loadingText="Submitting"
+                size="lg"
+                bg={'blue.400'}
+                color={'white'}
+                _hover={{
+                  bg: 'blue.500',
+                }}>
+               Create
+              </Button>
+            </Stack>
+            <Stack pt={6}>
+              
+            </Stack>
+          </Stack>
+        </Box>
+      </Stack>
     </Flex>
   );
 }

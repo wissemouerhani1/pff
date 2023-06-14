@@ -14,7 +14,7 @@ module.exports.createEmploye = async(req,res)=>{
 
       const isExisteUser =   await User.findOne({ where: { email }});
       if (isExisteUser){
-        return res.status(401).json("email already exsite")
+        return res.status(401).json("email already exist")
       }
       if (!isPasswordAlphanumeric(password)){
           return res.status(400).json({message:"password should be Alphanumeric"})

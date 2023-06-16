@@ -1,52 +1,133 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import {
-  Button,
-  Stack,
+  Avatar,
   Box,
   Flex,
-  Text,
+  FormLabel,
+  Icon,
+  Select,
+  SimpleGrid,
   useColorModeValue,
-} from '@chakra-ui/react';
-import Card from "components/card/Card.js";
+} from "@chakra-ui/react";
+// Assets
+import Usa from "assets/img/dashboards/usa.png";
+// Custom components
+import MiniCalendar from "components/calendar/MiniCalendar";
+import MiniStatistics from "components/card/MiniStatistics";
+import IconBox from "components/icons/IconBox";
+import React from "react";
 
-const Users = () => {
-  const textColor = useColorModeValue("secondaryGray.900", "white");
+import Tasks from "views/admin/default/components/Tasks";
+import {
+  MdAddTask,
+  MdAttachMoney,
+  MdBarChart,
+  MdFileCopy,
+  
+} from "react-icons/md";
+import{
+  BsPerson,
+  CiDeliveryTruck,
+  BsPersonBoundingBox,
+  BsFillCarFrontFill,
 
+}
+from "react-icons/bs";
+
+export default function UserReports() {
+  // Chakra Color Mode
+  const brandColor = useColorModeValue("brand.500", "white");
+  const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
   return (
-    <div>
-      <br /> <br /><br /><br /><br /><br /><br /><br />
-      <Stack direction='row' spacing={4} align='center'>
-        <Button as={Link} to='/admin/add_packages' colorScheme='blue'>Add Courier</Button>
-        <Button as={Link} to='/admin/courier_information' colorScheme='blue'>Courier Information</Button>
-        <Button colorScheme='blue'>Track Your Packages</Button>
-      </Stack>
-      <br /><br /><br /><br />
-      <Card align='center' direction='column' w='100%'>
-        <Flex align='center' w='100%' px='15px' py='10px'>
-          <Text
-            me='auto'
-            color={textColor}
-            fontSize='xl'
-            fontWeight='700'
-            lineHeight='100%'>
-Your Information     </Text>
-          
-        </Flex>
-        <Box h='240px' mt='auto'>
-         
-Registered packages
-<br /> <br />
-Pickups
-<br /><br />
-Delivered Courrier
-<br /><br />
-At The Storage Warehouse
-          
-        </Box>
-      </Card>
-    </div>
-  );
-};
+    <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
+      <SimpleGrid
+        columns={{ base: 1, md: 2, lg: 3, "2xl": 6 }}
+        gap='20px'
+        mb='20px'>
+        <MiniStatistics
+          startContent={
+            <IconBox
+              w='56px'
+              h='56px'
+              bg={boxBg}
+              icon={
+                <Icon w='32px' h='32px' as={BsPersonBoundingBox} color={brandColor} />
+              }
+            />
+          }
+          name='Courriers'
+          value='50'
+        />
+        <MiniStatistics
+          startContent={
+            <IconBox
+              w='56px'
+              h='56px'
+              bg={boxBg}
+              icon={
+                <Icon w='32px' h='32px' as={BsPerson} color={brandColor} />
+              }
+            />
+          }
+          name='Return Courriers'
+          value='7'
+        />
+        <MiniStatistics
+          startContent={
+            <IconBox
+              w='56px'
+              h='56px'
+              bg='linear-gradient(90deg, #4481EB 0%, #04BEFE 100%)'
+              icon={<Icon w='28px' h='28px' as={BsFillCarFrontFill} color='white' />}
+            />
+          }
+          name='Payments'
+          value='154'
+        />
+        <MiniStatistics
+          startContent={
+            <IconBox
+              w='56px'
+              h='56px'
+              bg='linear-gradient(90deg, #4481EB 0%, #04BEFE 100%)'
+              icon={<Icon w='28px' h='28px' as={BsFillCarFrontFill} color='white' />}
+            />
+          }
+          name='Courriers'
+          value='154'
+        />
+        <MiniStatistics
+          startContent={
+            <IconBox
+              w='56px'
+              h='56px'
+              bg={boxBg}
+              icon={
+                <Icon w='32px' h='32px' as={MdFileCopy} color={brandColor} />
+              }
+            />
+          }
+          name='Dekivred '
+          value='2935'
+        />
+        
+        <MiniStatistics
+          startContent={
+            <IconBox
+              w='56px'
+              h='56px'
+              bg={boxBg}
+              icon={
+                <Icon w='32px' h='32px' as={MdFileCopy} color={brandColor} />
+              }
+            />
+          }
+          name='At Warhouse '
+          value='2935'
+        />
+      </SimpleGrid>
+      
+    
 
-export default Users;
+    </Box>
+  );
+}

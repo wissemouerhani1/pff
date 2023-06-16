@@ -28,7 +28,7 @@ import DriverList  from "views/driverlist";
 import CreateDriver  from "views/createdriver";
 import CreateUser  from "views/createuser";
 import CreateEmpolye  from "views/createempolye";
-
+import UserList from "views/userList";
 
 import CourrierInformation from "views/courrierinformation";
 // Auth Imports
@@ -58,6 +58,16 @@ const routes = [
     icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
     component: Payments,
   },
+  
+  {
+    name: "UserList",
+    layout: "/admin",
+    path: "/userlist",
+    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+    component: UserList,
+  },
+  
+  
   {
     name: "ReturnPackages",
     layout: "/admin",

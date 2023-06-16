@@ -139,7 +139,7 @@ export default function HeaderLinks(props) {
 						</Link>
 						<Link w="100%" href="https://github.com/horizon-ui/horizon-ui-chakra">
 							<Button w="100%" h="44px" variant="no-hover" color={textColor} bg="transparent">
-								Try Horizon Free
+								Try WISSEM
 							</Button>
 						</Link>
 					</Flex>

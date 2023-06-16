@@ -127,7 +127,7 @@ export default function UserReports() {
               icon={<Icon w='28px' h='28px' as={MdAddTask} color='white' />}
             />
           }
-          name='New Tasks'
+          name='Total Users'
           value='154'
         />
         <MiniStatistics
@@ -141,8 +141,8 @@ export default function UserReports() {
               }
             />
           }
-          name='Total Projects'
-          value='2935'
+          name='Total Vehicule'
+          value='20'
         />
       </SimpleGrid>
 

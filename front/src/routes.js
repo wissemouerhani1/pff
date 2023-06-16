@@ -13,7 +13,12 @@ import {
 import MainDashboard from "views/admin/default";
 import NFTMarketplace from "views/admin/marketplace";
 import Profile from "views/admin/profile";
-
+import Payments from "views/payments";
+import Transactions from "views/transactions";
+import Vehicule  from "views/vehicule";
+import AddVehicule  from "views/AddVehicule";
+import VehiculeList  from "views/vehiculeList";
+import ReturnPackages  from "views/returnPackages";
 import RTL from "views/admin/rtl";
 import Employe from "views/user/employe";
 import Users from "views/user/users";
@@ -24,10 +29,12 @@ import CreateDriver  from "views/createdriver";
 import CreateUser  from "views/createuser";
 import CreateEmpolye  from "views/createempolye";
 
+
 import CourrierInformation from "views/courrierinformation";
 // Auth Imports
 import SignInCentered from "views/auth/signIn";
 import SignUpCentred from "views/auth/signup";
+
 const routes = [
   {
     name: "Main Dashboard",
@@ -42,6 +49,52 @@ const routes = [
     path: "/employe",
     icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
     component: Employe,
+  },
+
+  {
+    name: "Payments",
+    layout: "/admin",
+    path: "/payments",
+    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+    component: Payments,
+  },
+  {
+    name: "ReturnPackages",
+    layout: "/admin",
+    path: "/returnpackages",
+    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+    component: ReturnPackages,
+  },
+
+  {
+    name: "AddVehicule",
+    layout: "/admin",
+    path: "/addvehicule",
+    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+    component: AddVehicule,
+  },
+
+
+  {
+    name: "Vehicule",
+    layout: "/admin",
+    path: "/vehicule",
+    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+    component: Vehicule,
+  },
+  {
+    name: "VehiculeList",
+    layout: "/admin",
+    path: "/vehiculelist",
+    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+    component: VehiculeList,
+  },
+  {
+    name: "Transactions",
+    layout: "/admin",
+    path: "/transactions",
+    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+    component: Transactions,
   },
   {
     name: "CustomerList",

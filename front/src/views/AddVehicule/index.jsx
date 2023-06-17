@@ -15,8 +15,27 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-
+import axios from 'axios'
 const AddVehicule = () => {
+  const [vehicule_type,setVehiculeType]=useState("")
+  const [matricule,setMatricule]=useState("")
+  const [vehicule_code,setVehiuleCode]=useState("") 
+  console.log({
+    vehicule_type,matricule,vehicule_code
+  })
+
+  const handleCreateVehicule = async()=> {
+    try {
+      
+      await axios.post("http://localhost:3333/vehicule/createVehicule",{
+        vehicule_type,matricule,vehicule_code
+      })
+        }    catch (error) {
+        console.log(error)
+    }
+  }
+  
+      
   
 
   return (
@@ -45,24 +64,24 @@ const AddVehicule = () => {
                 <Box>
                   
                 
-                <Select placeholder='Vehicule Type'>
-  <option value='option1'>Fiat</option>
-  <option value='option2'>Peugeot</option>
-  <option value='option3'>Citroen</option>
+                <Select placeholder='Vehicule Type'  onChange={(e)=>setVehiculeType(e.target.value)}>
+  <option value='Fiat'>Fiat</option>
+  <option value='Peugeot'>Peugeot</option>
+  <option value='Citroen'>Citroen</option>
   
 </Select>
                </Box>
                 <Box>
                   <FormControl id="matricule">
                     <FormLabel>Matricule</FormLabel>
-                    <Input type="text" />
+                    <Input type="text"color={"white"} onChange={(e)=>setMatricule(e.target.value)} />
                   </FormControl>
                 </Box>
               
               <Box>
                 <FormControl id="vehiculecode">
                   <FormLabel>Vehicule Code</FormLabel>
-                  <Input type="text" />
+                  <Input type="text" color={"white"} onChange={(e)=>setVehiuleCode(e.target.value)} />
                 </FormControl>
               </Box>
               
@@ -75,6 +94,7 @@ const AddVehicule = () => {
                   _hover={{
                     bg: 'blue.500',
                   }}
+                  onClick={handleCreateVehicule}
                 >
                   ADD
                 </Button>

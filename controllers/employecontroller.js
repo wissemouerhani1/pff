@@ -1,4 +1,4 @@
-const {User} = require("../database/models")
+const {employe} = require("../database/models")
 const {isPasswordAlphanumeric,hashPassword,VerifPassword} = require("../helper/helper")
 
 module.exports.createEmploye = async(req,res)=>{
@@ -12,8 +12,8 @@ module.exports.createEmploye = async(req,res)=>{
         cin
       } = req.body;
 
-      const isExisteUser =   await User.findOne({ where: { email }});
-      if (isExisteUser){
+      const isExisteEmploye =   await employe.findOne({ where: { email }});
+      if (isExisteEmploye){
         return res.status(401).json("email already exist")
       }
       if (!isPasswordAlphanumeric(password)){
@@ -21,16 +21,16 @@ module.exports.createEmploye = async(req,res)=>{
       }
 
       const hashedPassword = await hashPassword(password)
-      const user = await User.create({
+      const employe = await employe.create({
         name,
         last_name ,
         password:hashedPassword ,
         email,
         phone,
         cin,
-        role:'employe'
+
       });
-      return res.json(user.id)  
+      return res.json(employe.id)  
  } catch (error) {
     throw new Error(error)
  }
@@ -40,10 +40,10 @@ module.exports.createEmploye = async(req,res)=>{
 
 module.exports.deleteEmploye = async(req,res)=>{
     try {
-        const userID =req.params.id
-        User.destroy({
+        const employeID =req.params.id
+        employe.destroy({
             where: {
-                id:userID
+                id:employeID
             }
         })
          return res.json("employe deleted")  
@@ -59,11 +59,11 @@ module.exports.deleteEmploye = async(req,res)=>{
     const { id } = req.params;
        try {
       // Find the record to be updated
-      const record = await User.findByPk(id);
+      const record = await employe.findByPk(id);
     
       if (record) {
         // Update the record
-        await ModelName.update({ ...req.body }, {
+        await employe.update({ ...req.body }, {
           where: { id }
         });
     
@@ -84,9 +84,7 @@ module.exports.deleteEmploye = async(req,res)=>{
     try {
 
       // Fetch all records from the model
-      const records = await User.findAll({
-        where:{role:"employe"}
-      });
+      const records = await employe.findAll();
           res.json(records);
     } catch (error) {
       res.status(500).json({ message: 'Error retrieving records', error });

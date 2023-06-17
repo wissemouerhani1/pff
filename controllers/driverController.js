@@ -1,4 +1,4 @@
-const {User} = require("../database/models")
+const {Driver} = require("../database/models")
 const {isPasswordAlphanumeric,hashPassword,VerifPassword} = require("../helper/helper")
 
 module.exports.createDriver = async(req,res)=>{
@@ -13,8 +13,8 @@ module.exports.createDriver = async(req,res)=>{
         cin
       } = req.body;
 
-      const isExisteUser =   await User.findOne({ where: { email }});
-      if (isExisteUser){
+      const isExisteDriver =   await Driver.findOne({ where: { email }});
+      if (isExisteDriver){
         return res.status(401).json("email already exsite")
       }
       if (!isPasswordAlphanumeric(password)){
@@ -22,17 +22,16 @@ module.exports.createDriver = async(req,res)=>{
       }
 
       const hashedPassword = await hashPassword(password)
-      const user = await User.create({
+      const driver = await Driver.create({
         name,
         last_name ,
         password:hashedPassword ,
         email,
         phone,
         vehicule_code,
-        cin,
-        role:'driver'
+        cin
       });
-      return res.json(user.id)  
+      return res.json(driver.id)  
  } catch (error) {
     throw new Error(error)
  }
@@ -42,10 +41,10 @@ module.exports.createDriver = async(req,res)=>{
 
 module.exports.deleteDriver = async(req,res)=>{
     try {
-        const userID =req.params.id
-        User.destroy({
+        const driverID =req.params.id
+        Driver.destroy({
             where: {
-                id:userID
+                id:driverID
             }
         })
          return res.json("Driver deleted")  
@@ -61,11 +60,11 @@ module.exports.deleteDriver = async(req,res)=>{
     const { id } = req.params;
        try {
       // Find the record to be updated
-      const record = await User.findByPk(id);
+      const record = await Driver.findByPk(id);
     
       if (record) {
         // Update the record
-        await ModelName.update({ ...req.body }, {
+        await Driver.update({ ...req.body }, {
           where: { id }
         });
     
@@ -84,11 +83,16 @@ module.exports.deleteDriver = async(req,res)=>{
   
   module.exports.getAllDriver = async (req, res) => {
     try {
+      const records = await Driver.findAll();
+              res.json(records);
+    } catch (error) {
+      res.status(500).json({ message: 'Error retrieving records', error });
+    }
+  };
 
-      // Fetch all records from the model
-      const records = await User.findAll({
-        where:{role:"driver"}
-      });
+  module.exports.getDriverCount = async (req, res) => {
+    try {
+      const records = await Driver.count();
               res.json(records);
     } catch (error) {
       res.status(500).json({ message: 'Error retrieving records', error });

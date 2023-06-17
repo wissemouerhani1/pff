@@ -1,7 +1,7 @@
 const {User} = require("../database/models")
 const {isPasswordAlphanumeric,hashPassword,VerifPassword} = require("../helper/helper")
 
-module.exports.createUser = async(req,res)=>{
+module.exports.createCustomer= async(req,res)=>{
  try {
       const {
         name,
@@ -38,7 +38,7 @@ module.exports.createUser = async(req,res)=>{
 
 }
 
-module.exports.deleteUser = async(req,res)=>{
+module.exports.deleteCustomer = async(req,res)=>{
     try {
         const userID =req.params.id
         User.destroy({
@@ -55,7 +55,7 @@ module.exports.deleteUser = async(req,res)=>{
    }
    
    
-   module.exports.UpdateUser = async (req, res) => {
+   module.exports.UpdateCustomer = async (req, res) => {
     const { id } = req.params;
        try {
       // Find the record to be updated
@@ -80,7 +80,7 @@ module.exports.deleteUser = async(req,res)=>{
   
 
   
-  module.exports.getAllEmploye = async (req, res) => {
+  module.exports.getAllCustomer = async (req, res) => {
     try {
 
       // Fetch all records from the model

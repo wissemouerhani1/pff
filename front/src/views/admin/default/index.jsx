@@ -14,7 +14,7 @@ import Usa from "assets/img/dashboards/usa.png";
 import MiniCalendar from "components/calendar/MiniCalendar";
 import MiniStatistics from "components/card/MiniStatistics";
 import IconBox from "components/icons/IconBox";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   MdAddTask,
   MdAttachMoney,
@@ -29,21 +29,26 @@ import{
   BsFillCarFrontFill,
 
 }from "react-icons/bs"
-import CheckTable from "views/admin/default/components/CheckTable";
-import ComplexTable from "views/admin/default/components/ComplexTable";
-import DailyTraffic from "views/admin/default/components/DailyTraffic";
-import PieCard from "views/admin/default/components/PieCard";
-import Tasks from "views/admin/default/components/Tasks";
-import TotalSpent from "views/admin/default/components/TotalSpent";
-import WeeklyRevenue from "views/admin/default/components/WeeklyRevenue";
-import {
-  columnsDataCheck,
-  columnsDataComplex,
-} from "views/admin/default/variables/columnsData";
-import tableDataCheck from "views/admin/default/variables/tableDataCheck.json";
-import tableDataComplex from "views/admin/default/variables/tableDataComplex.json";
 
+import TotalSpent from "views/admin/default/components/TotalSpent";
+import axios from "axios"
 export default function UserReports() {
+  const [driverCount,setDriverCount]=useState(0)
+  const [vehiculeCount,setVehiculeCount]=useState(0)
+
+  useEffect(() => {
+    axios.get("http://localhost:3333/driver/getDriverCount").then(res=>{
+      setDriverCount(res?.data)
+    })
+  }, [])
+  
+
+  useEffect(() => {
+    axios.get("http://localhost:3333/vehicule/getVehiculeCount").then(res=>{
+      setVehiculeCount(res?.data)
+    })
+  }, [])
+  
   // Chakra Color Mode
   const brandColor = useColorModeValue("brand.500", "white");
   const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
@@ -64,7 +69,7 @@ export default function UserReports() {
               }
             />
           }
-          name='Employee'
+          name='Employe'
           value='50'
         />
         <MiniStatistics
@@ -79,7 +84,7 @@ export default function UserReports() {
             />
           }
           name='Drivers'
-          value='7'
+          value={driverCount}
         />
         
         <MiniStatistics
@@ -104,7 +109,7 @@ export default function UserReports() {
             />
           }
           name='Vehicule'
-          value='154'
+          value={vehiculeCount}
         />
         <MiniStatistics
           startContent={
@@ -136,13 +141,7 @@ export default function UserReports() {
 
       <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
         <TotalSpent />
-        <WeeklyRevenue />
-      </SimpleGrid>
-      <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap='20px' mb='20px'>
-        
-   
-
-          <MiniCalendar h='100%' minW='100%' selectRange={false} />
+            <MiniCalendar h='100%' minW='100%' selectRange={false} />
         </SimpleGrid>
 
     </Box>

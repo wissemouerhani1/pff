@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import {
     Table,
     Thead,
@@ -12,6 +13,15 @@ import {
   } from '@chakra-ui/react'
 
 const VehiculeList= () => {
+  const [vehiculeData,setVehiculeData] = useState([])
+
+  useEffect(() => {
+     axios.get("http://localhost:3333/vehicule/getAllVehicule").then(res=>{
+      setVehiculeData(res.data)
+     })   
+  }, [])
+
+
   return (
     <div>
         <br /><br /><br /><br /><br /><br /><br /><br />
@@ -27,25 +37,17 @@ const VehiculeList= () => {
       </Tr>
     </Thead>
     <Tbody>
+      
+    {vehiculeData?.map(e=>(
       <Tr>
-        <Td></Td>
-        <Td></Td>
-        <Td ></Td>
+        <Td>{e?.vehicule_type}</Td>
+        <Td>{e?.matricule}</Td>
+        <Td >{e?.vehicule_code}</Td>
       </Tr>
-      <Tr>
-        <Td></Td>
-        <Td></Td>
-        <Td ></Td>
-      </Tr>
-      <Tr>
-        <Td></Td>
-        <Td></Td>
-        <Td ></Td>
-      </Tr>
+    ))
+}
     </Tbody>
-    <Tfoot>
-     
-    </Tfoot>
+    
   </Table>
 </TableContainer>
 

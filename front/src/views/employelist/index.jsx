@@ -11,13 +11,13 @@ import {
     TableContainer,
   } from '@chakra-ui/react'
 import axios from 'axios'
-const UserList= () => {
+const EmployeList= () => {
 
-  const [userData,setUserData] = useState([])
+  const [employeData,setEmployeData] = useState([])
 
   useEffect(() => {
-     axios.get("http://localhost:3333/customer/getAllCustomer").then(res=>{
-      setUserData(res.data)
+     axios.get("http://localhost:3333/employe/getAllEmploye").then(res=>{
+      setEmployeData(res.data)
      })   
   }, [])
   
@@ -31,7 +31,7 @@ const UserList= () => {
           }}
         >
   <Table variant='simple'>
-    <TableCaption>User List</TableCaption>
+    <TableCaption>Employe List</TableCaption>
     <Thead>
 
         
@@ -46,7 +46,7 @@ const UserList= () => {
     <Tbody>
     
     
-    {userData?.map(e=>(
+    {employeData?.map(e=>(
         
         <Tr>
         <Th>{e?.name}</Th>
@@ -65,4 +65,4 @@ const UserList= () => {
   )
 }
 
-export default UserList
+export default EmployeList

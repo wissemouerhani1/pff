@@ -12,3 +12,4 @@ npx sequelize-cli seed:generate --name cohort
 
 to run all seeds
 npx sequelize-cli db:seed:all
+http://localhost:3333/customer/createCustomer

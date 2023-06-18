@@ -29,10 +29,10 @@ const CreateEmploye = () => {
     console.log({
       name,last_name,email,phone,cin,password
     })
-  const handleCreatEmploye = async()=> {
+  const handleCreateEmploye = async()=> {
     try {
       
-      await axios.post("http://localhost:3333/employe/createempolye",{
+      await axios.post("http://localhost:3333/employe/createEmploye",{
         name,last_name,email,phone,cin,password
       })
       
@@ -114,7 +114,7 @@ const CreateEmploye = () => {
               </FormControl>
               <Stack spacing={10} pt={2}>
                 <Button
-                onClick={handleCreatEmploye}
+                onClick={handleCreateEmploye}
                   loadingText="Submitting"
                   size="lg"
                   bg={'blue.400'}

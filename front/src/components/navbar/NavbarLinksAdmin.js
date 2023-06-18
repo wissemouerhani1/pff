@@ -26,6 +26,7 @@ import { FaEthereum } from 'react-icons/fa';
 import routes from 'routes.js';
 import { ThemeEditor } from './ThemeEditor';
 export default function HeaderLinks(props) {
+	
 	const { secondary } = props;
 	// Chakra Color Mode
 	const navbarIcon = useColorModeValue('gray.400', 'white');
@@ -41,6 +42,12 @@ export default function HeaderLinks(props) {
 		'14px 17px 40px 4px rgba(112, 144, 176, 0.06)'
 	);
 	const borderButton = useColorModeValue('secondaryGray.500', 'whiteAlpha.200');
+
+	const handleLogOut = ()=> {
+		localStorage.removeItem("user")
+		window.location.href = "/"
+	}
+	
 	return (
 		<Flex
 			w={{ sm: '100%', md: 'auto' }}
@@ -183,6 +190,7 @@ export default function HeaderLinks(props) {
 							<Text fontSize="sm">Newsletter Settings</Text>
 						</MenuItem>
 						<MenuItem
+							onClick={handleLogOut}
 							_hover={{ bg: 'none' }}
 							_focus={{ bg: 'none' }}
 							color="red.400"

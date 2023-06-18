@@ -3,14 +3,21 @@ import {
     Table,
     Thead,
     Tbody,
-    Tfoot,
+
     Tr,
+      Icon,
+    
     Th,
     Td,
     TableCaption,
     TableContainer,
   } from '@chakra-ui/react'
-import axios from "axios"
+  import {
+    AiFillDelete,
+  } from "react-icons/ai";
+
+
+  import axios from "axios"
 const DriverList= () => {
   const [userData,setUserData] = useState([])
 
@@ -37,7 +44,9 @@ const DriverList= () => {
         <Th>Last Name</Th>
         <Th >Cin</Th>
         <Th >Vehicule Code</Th>
+        <Th >phone</Th>
         <Th >Email</Th>
+        <Th >Delete</Th>
         
       </Tr>
     </Thead>
@@ -47,11 +56,18 @@ const DriverList= () => {
       <Tr>
       
         
-        <Td>{e?.name}</Td>
+        <Td>{e?.name} </Td>
         <Td>{e?.last_name}</Td>
         <Td >{e?.cin}</Td>
-        <Td >{e?.email }</Td>
+        <Td >{e?.vehicule_code}</Td>
         <Td >{e?.phone}</Td>
+        <Td >{e?.email }</Td>
+       
+       
+       
+        <Td >{
+                <Icon w='32px' h='32px' as={AiFillDelete}  />
+              }</Td>
       </Tr>
       ))
 }

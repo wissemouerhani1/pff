@@ -1,5 +1,6 @@
 const {User} = require("../database/models")
-const {isPasswordAlphanumeric,hashPassword,VerifPassword} = require("../helper/helper")
+const {isPasswordAlphanumeric,hashPassword,VerifPassword} = require("../helper/helper");
+const customerRoute = require("../routes/customerRoute");
 
 module.exports.createCustomer= async(req,res)=>{
  try {
@@ -88,6 +89,17 @@ module.exports.deleteCustomer = async(req,res)=>{
         where:{role:"customer"}
       });
           res.json(records);
+    } catch (error) {
+      res.status(500).json({ message: 'Error retrieving records', error });
+    }
+  };
+  
+  module.exports.getCustomerCount = async (req, res) => {
+    try {
+      const records = await User.count({
+        where:{role:"customer"}
+      });
+              res.json(records);
     } catch (error) {
       res.status(500).json({ message: 'Error retrieving records', error });
     }

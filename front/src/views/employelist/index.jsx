@@ -7,9 +7,14 @@ import {
     Tr,
     Th,
     Td,
+    Icon,
     TableCaption,
     TableContainer,
   } from '@chakra-ui/react'
+  import {
+    AiFillDelete,
+  } from "react-icons/ai";
+
 import axios from 'axios'
 const EmployeList= () => {
 
@@ -41,6 +46,7 @@ const EmployeList= () => {
         <Th >Cin</Th>
         <Th >Email</Th>
         <Th >Phone</Th>
+        <Th>Delete</Th>
         </Tr>
     </Thead>
     <Tbody>
@@ -49,11 +55,16 @@ const EmployeList= () => {
     {employeData?.map(e=>(
         
         <Tr>
-        <Th>{e?.name}</Th>
-        <Th>{e?.last_name}</Th>
-        <Th >{e?.cin}</Th>
-        <Th >{e?.email}</Th>
-        <Th >{e?.phone}</Th>
+              <Td>{e?.name} </Td>
+        <Td>{e?.last_name}</Td>
+        <Td >{e?.cin}</Td>
+        <Td >{e?.email }</Td>
+        <Td >{e?.phone}</Td>
+       
+       
+        <Td >{
+                <Icon w='32px' h='32px' as={AiFillDelete}  />
+              }</Td>
         </Tr>
       ))
         }

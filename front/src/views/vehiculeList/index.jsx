@@ -4,13 +4,16 @@ import {
     Table,
     Thead,
     Tbody,
-    Tfoot,
+Icon,
     Tr,
     Th,
     Td,
     TableCaption,
     TableContainer,
   } from '@chakra-ui/react'
+  import {
+    AiFillDelete,
+  } from "react-icons/ai";
 
 const VehiculeList= () => {
   const [vehiculeData,setVehiculeData] = useState([])
@@ -42,7 +45,12 @@ const VehiculeList= () => {
       <Tr>
         <Td>{e?.vehicule_type}</Td>
         <Td>{e?.matricule}</Td>
-        <Td >{e?.vehicule_code}</Td>
+     
+       <Td >{e?.vehicule_code}</Td>
+       <Td >{
+                <Icon w='32px' h='32px' as={AiFillDelete}  />
+              }</Td>
+    
       </Tr>
     ))
 }

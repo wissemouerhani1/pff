@@ -34,8 +34,23 @@ import CourrierInformation from "views/courrierinformation";
 // Auth Imports
 import SignInCentered from "views/auth/signIn";
 import SignUpCentred from "views/auth/signup";
-const role = JSON.parse(localStorage.getItem("user")).role
-let routes = [];
+const role = JSON.parse(localStorage.getItem("user"))?.role
+let routes = [
+  {
+    name: "Sign In",
+    layout: "/auth",
+    path: "/sign-in",
+    icon: <Icon as={MdLock} width='20px' height='20px' color='inherit' />,
+    component: SignInCentered,
+  },
+  {
+    name: "Sign Up",
+    layout: "/auth",
+    path: "/sign-up",
+    icon: <Icon as={MdLock} width='20px' height='20px' color='inherit' />,
+    component: SignUpCentred,
+  },
+];
 if (role==="admin"){
   routes.push(
     {
@@ -127,6 +142,16 @@ if (role==="admin"){
       component: CreateEmpolye,
     },
         
+  )
+}else if (role ==="customer"){
+  routes.push(
+    {
+      name: "Add Packages",
+      layout: "/admin",
+      path: "/add_packages",
+      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+      component: AddPackages,
+    },  
   )
 }
 

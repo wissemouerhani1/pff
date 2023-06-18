@@ -35,7 +35,8 @@ import axios from "axios"
 export default function UserReports() {
   const [driverCount,setDriverCount]=useState(0)
   const [vehiculeCount,setVehiculeCount]=useState(0)
-
+  const [customerCount,setCustomerCount]=useState(0)
+  const [employeCount,setEmpolyeCount]=useState(0)
   useEffect(() => {
     axios.get("http://localhost:3333/driver/getDriverCount").then(res=>{
       setDriverCount(res?.data)
@@ -46,6 +47,18 @@ export default function UserReports() {
   useEffect(() => {
     axios.get("http://localhost:3333/vehicule/getVehiculeCount").then(res=>{
       setVehiculeCount(res?.data)
+    })
+  }, [])
+
+  
+  useEffect(() => {
+    axios.get("http://localhost:3333/customer/getCustomerCount").then(res=>{
+      setCustomerCount(res?.data)
+    })
+  }, [])
+  useEffect(() => {
+    axios.get("http://localhost:3333/employe/getEmployeCount").then(res=>{
+      setEmpolyeCount(res?.data)
     })
   }, [])
   
@@ -70,7 +83,7 @@ export default function UserReports() {
             />
           }
           name='Employe'
-          value='50'
+          value={employeCount}
         />
         <MiniStatistics
           startContent={
@@ -97,7 +110,7 @@ export default function UserReports() {
             />
           }
           name='Users'
-          value='300'
+          value={customerCount}
         />
         <MiniStatistics
           startContent={

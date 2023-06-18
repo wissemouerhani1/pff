@@ -1,7 +1,44 @@
 const {employe} = require("../database/models")
 const {isPasswordAlphanumeric,hashPassword,VerifPassword} = require("../helper/helper")
 
-module.exports.createEmploye = async(req,res)=>{
+
+module.exports.createEmploye = async (req, res) => {
+  try {
+    const {
+      name,
+      last_name ,
+      password ,
+      email,
+      phone,
+      cin
+    } = req.body;
+
+    const isExisteEmploye =   await employe.findOne({ where: { email }});
+    if (isExisteEmploye){
+      return res.status(401).json("email already exist")
+    }
+
+    if (!isPasswordAlphanumeric(password)){
+      return res.status(400).json({message:"password should be Alphanumeric"})
+  }
+  const hashedPassword = await hashPassword(password)
+  const employeCreated = await employe.create({
+    name,
+    last_name ,
+    password:hashedPassword ,
+    email,
+    phone,
+    cin,
+
+  });
+  return res.json("employe create ")
+  
+  } catch (error) {
+    res.status(500).json({ message: 'Error retrieving records', error });
+  }
+};
+
+module.exports.createEmploye1 = async(req,res)=>{
  try {
       const {
         name,
@@ -13,6 +50,8 @@ module.exports.createEmploye = async(req,res)=>{
       } = req.body;
 
       const isExisteEmploye =   await employe.findOne({ where: { email }});
+      return console.log(isExisteEmploye)
+  
       if (isExisteEmploye){
         return res.status(401).json("email already exist")
       }
@@ -30,7 +69,7 @@ module.exports.createEmploye = async(req,res)=>{
         cin,
 
       });
-      return res.json(employe.id)  
+      return res.json("employe create ")  
  } catch (error) {
     throw new Error(error)
  }
@@ -85,6 +124,16 @@ module.exports.deleteEmploye = async(req,res)=>{
 
       // Fetch all records from the model
       const records = await employe.findAll();
+          res.json(records);
+    } catch (error) {
+      res.status(500).json({ message: 'Error retrieving records', error });
+    }
+  };
+  module.exports.getEmployeCount = async (req, res) => {
+    try {
+
+      // Fetch all records from the model
+      const records = await employe.count();
           res.json(records);
     } catch (error) {
       res.status(500).json({ message: 'Error retrieving records', error });

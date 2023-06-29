@@ -203,6 +203,16 @@ function SignIn() {
                   fontWeight='500'>
                   Create an Account
                 </Text>
+                <br />
+              </NavLink>
+              <NavLink to='/auth/become-member'>
+                <Text
+                  color={textColorBrand}
+                  as='span'
+                  ms='5px'
+                  fontWeight='500'>
+                  Become a member
+                </Text>
               </NavLink>
             </Text>
           </Flex>

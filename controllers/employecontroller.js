@@ -1,44 +1,8 @@
-const {employe} = require("../database/models")
-const {isPasswordAlphanumeric,hashPassword,VerifPassword} = require("../helper/helper")
+const {User} = require("../database/models")
+const {isPasswordAlphanumeric,hashPassword,VerifPassword} = require("../helper/helper");
+const customerRoute = require("../routes/customerRoute");
 
-
-module.exports.createEmploye = async (req, res) => {
-  try {
-    const {
-      name,
-      last_name ,
-      password ,
-      email,
-      phone,
-      cin
-    } = req.body;
-
-    const isExisteEmploye =   await employe.findOne({ where: { email }});
-    if (isExisteEmploye){
-      return res.status(401).json("email already exist")
-    }
-
-    if (!isPasswordAlphanumeric(password)){
-      return res.status(400).json({message:"password should be Alphanumeric"})
-  }
-  const hashedPassword = await hashPassword(password)
-  const employeCreated = await employe.create({
-    name,
-    last_name ,
-    password:hashedPassword ,
-    email,
-    phone,
-    cin,
-
-  });
-  return res.json("employe create ")
-  
-  } catch (error) {
-    res.status(500).json({ message: 'Error retrieving records', error });
-  }
-};
-
-module.exports.createEmploye1 = async(req,res)=>{
+module.exports.createEmploye= async(req,res)=>{
  try {
       const {
         name,
@@ -49,27 +13,25 @@ module.exports.createEmploye1 = async(req,res)=>{
         cin
       } = req.body;
 
-      const isExisteEmploye =   await employe.findOne({ where: { email }});
-      return console.log(isExisteEmploye)
-  
-      if (isExisteEmploye){
-        return res.status(401).json("email already exist")
+      const isExisteUser =   await User.findOne({ where: { email }});
+      if (isExisteUser){
+        return res.status(401).json("email already exsite")
       }
       if (!isPasswordAlphanumeric(password)){
           return res.status(400).json({message:"password should be Alphanumeric"})
       }
 
       const hashedPassword = await hashPassword(password)
-      const employe = await employe.create({
+      const user = await User.create({
         name,
         last_name ,
         password:hashedPassword ,
         email,
         phone,
         cin,
-
+        role:'employe'
       });
-      return res.json("employe create ")  
+      return res.json(user.id)  
  } catch (error) {
     throw new Error(error)
  }
@@ -79,13 +41,13 @@ module.exports.createEmploye1 = async(req,res)=>{
 
 module.exports.deleteEmploye = async(req,res)=>{
     try {
-        const employeID =req.params.id
-        employe.destroy({
+        const userID =req.params.id
+        User.destroy({
             where: {
-                id:employeID
+                id:userID
             }
         })
-         return res.json("employe deleted")  
+         return res.json("user deleted")  
     } catch (error) {
        throw new Error(error)
     }
@@ -98,11 +60,11 @@ module.exports.deleteEmploye = async(req,res)=>{
     const { id } = req.params;
        try {
       // Find the record to be updated
-      const record = await employe.findByPk(id);
+      const record = await User.findByPk(id);
     
       if (record) {
         // Update the record
-        await employe.update({ ...req.body }, {
+        await ModelName.update({ ...req.body }, {
           where: { id }
         });
     
@@ -123,18 +85,21 @@ module.exports.deleteEmploye = async(req,res)=>{
     try {
 
       // Fetch all records from the model
-      const records = await employe.findAll();
+      const records = await User.findAll({
+        where:{role:"customer"}
+      });
           res.json(records);
     } catch (error) {
       res.status(500).json({ message: 'Error retrieving records', error });
     }
   };
+  
   module.exports.getEmployeCount = async (req, res) => {
     try {
-
-      // Fetch all records from the model
-      const records = await employe.count();
-          res.json(records);
+      const records = await User.count({
+        where:{role:"employe"}
+      });
+              res.json(records);
     } catch (error) {
       res.status(500).json({ message: 'Error retrieving records', error });
     }

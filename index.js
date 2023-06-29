@@ -8,6 +8,7 @@ const customerRoute = require("./routes/customerRoute")
 const vehiculeRoute = require("./routes/vehiculeRoutes")
 const driverRoute = require("./routes/driverRoutes")
 const CourrierRoute = require("./routes/courrierRoute")
+const becomememberRoute = require("./routes/becomememberRoute")
   const app = express()
   
   const port = 3333
@@ -17,8 +18,10 @@ const CourrierRoute = require("./routes/courrierRoute")
   app.use("/employe",employeRoute);
   app.use("/customer",customerRoute);
   app.use("/vehicule",vehiculeRoute);
-  app.use("/driver",driverRoute)
-  app.use("/courrier",CourrierRoute)
+  app.use("/driver",driverRoute);
+  app.use("/courrier",CourrierRoute);
+  app.use("/becomemember", becomememberRoute)
+
 
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)

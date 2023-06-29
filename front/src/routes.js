@@ -6,12 +6,11 @@ import {
   MdPerson,
   MdHome,
   MdLock,
-  MdOutlineShoppingCart,
+  
 } from "react-icons/md";
 
 // Admin Imports
 import MainDashboard from "views/admin/default";
-import NFTMarketplace from "views/admin/marketplace";
 import Profile from "views/admin/profile";
 import Payments from "views/payments";
 import Transactions from "views/transactions";
@@ -29,11 +28,13 @@ import CreateDriver  from "views/createdriver";
 import CreateUser  from "views/createuser";
 import CreateEmpolye  from "views/createempolye";
 import UserList from "views/userList";
-
+import BecomeMember from "views/auth/becomeamember";
 import CourrierInformation from "views/courrierinformation";
+import Newmember from "views/Newmember";
 // Auth Imports
 import SignInCentered from "views/auth/signIn";
 import SignUpCentred from "views/auth/signup";
+
 const role = JSON.parse(localStorage.getItem("user"))?.role
 let routes = [
   {
@@ -49,6 +50,13 @@ let routes = [
     path: "/sign-up",
     icon: <Icon as={MdLock} width='20px' height='20px' color='inherit' />,
     component: SignUpCentred,
+  },
+  {
+    name: "aaa",
+    layout: "/auth",
+    path: "/become-member",
+    icon: <Icon as={MdLock} width='20px' height='20px' color='inherit' />,
+    component: BecomeMember,
   },
 ];
 if (role==="admin"){
@@ -69,6 +77,15 @@ if (role==="admin"){
       role:"admin",
       icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
       component: EmployeList,
+    },
+    
+    {
+      name: "New Member list",
+      layout: "/admin",
+      path: "/new member",
+      role:"admin",
+      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+      component: Newmember,
     },
     {
       name: "UserList",
@@ -146,15 +163,63 @@ if (role==="admin"){
 }else if (role ==="customer"){
   routes.push(
     {
+      name: "Users",
+      layout: "/admin",
+      path: "/users",
+      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+      component: Users,
+    },
+
+
+    {
       name: "Add Packages",
       layout: "/admin",
       path: "/add_packages",
       icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
       component: AddPackages,
-    },  
+    },
+    
+    {
+      name: "ReturnPackages",
+      layout: "/admin",
+      path: "/returnpackages",
+      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+      component: ReturnPackages,
+    },
+    {
+      name: "Courrier Information",
+      layout: "/admin",
+      path: "/courrier_information",
+      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+      component: CourrierInformation,
+    },
+    
   )
-}
 
+}
+else if (role ==="employe"){
+  routes.push(
+  
+    {
+      name: "Employe",
+      layout: "/admin",
+      path: "/employe",
+      role:"employe",
+      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+      component: Employe,
+    },
+  
+  
+    {
+      name: "Courrier Information",
+      layout: "/admin",
+      path: "/courrier_information",
+      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+      component: CourrierInformation,
+    },
+  )
+  
+}
 const routes1 = [
   {
     name: "Main Dashboard",
@@ -163,14 +228,6 @@ const routes1 = [
     role:"admin",
     icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
     component: MainDashboard,
-  },
-  {
-    name: "Employe",
-    layout: "/admin",
-    path: "/employe",
-    role:"employe",
-    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-    component: Employe,
   },
 
   {
@@ -191,14 +248,7 @@ const routes1 = [
   },
   
   
-  {
-    name: "ReturnPackages",
-    layout: "/admin",
-    path: "/returnpackages",
-    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-    component: ReturnPackages,
-  },
-
+  
   {
     name: "AddVehicule",
     layout: "/admin",
@@ -210,11 +260,11 @@ const routes1 = [
 
 
   {
-    name: "Vehicule",
-    layout: "/admin",
-    path: "/vehicule",
+    name: "BecomeMember",
+    layout: "/auth",
+    path: "/becomemember",
     icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-    component: Vehicule,
+    component: BecomeMember,
   },
   {
     name: "VehiculeList",
@@ -227,7 +277,7 @@ const routes1 = [
   {
     name: "Transactions",
     layout: "/admin",
-    path: "/transactions",
+      path: "/transactions",
     role:"admin",
     icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
     component: Transactions,
@@ -249,27 +299,7 @@ const routes1 = [
     component: CreateDriver,
   },
   
-  {
-    name: "Users",
-    layout: "/admin",
-    path: "/users",
-    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-    component: Users,
-  },
-  {
-    name: "Add Packages",
-    layout: "/admin",
-    path: "/add_packages",
-    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-    component: AddPackages,
-  },
-  {
-    name: "Courrier Information",
-    layout: "/admin",
-    path: "/courrier_information",
-    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-    component: CourrierInformation,
-  },
+
   {
     name: "Create User",
     layout: "/admin",

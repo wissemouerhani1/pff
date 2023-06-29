@@ -16,13 +16,13 @@ import {
   } from "react-icons/ai";
 
 import axios from 'axios'
-const EmployeList= () => {
+const UserList= () => {
 
-  const [employeData,setEmployeData] = useState([])
+  const [userData,setUserData] = useState([])
 
   useEffect(() => {
      axios.get("http://localhost:3333/employe/getAllEmploye").then(res=>{
-      setEmployeData(res.data)
+      setUserData(res.data)
      })   
   }, [])
   
@@ -52,10 +52,10 @@ const EmployeList= () => {
     <Tbody>
     
     
-    {employeData?.map(e=>(
+    {userData?.map(e=>(
         
         <Tr>
-              <Td>{e?.name} </Td>
+        <Td>{e?.name} </Td>
         <Td>{e?.last_name}</Td>
         <Td >{e?.cin}</Td>
         <Td >{e?.email }</Td>
@@ -76,4 +76,4 @@ const EmployeList= () => {
   )
 }
 
-export default EmployeList
+export default UserList

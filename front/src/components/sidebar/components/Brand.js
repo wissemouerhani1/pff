@@ -8,13 +8,12 @@ import { HorizonLogo } from "components/icons/Icons";
 import { HSeparator } from "components/separator/Separator";
 
 export function SidebarBrand() {
-  //   Chakra color mode
+  //   here logo horzian
   let logoColor = useColorModeValue("navy.700", "white");
 
   return (
     <Flex align='center' direction='column'>
-      <HorizonLogo h='26px' w='175px' my='32px' color={logoColor} />
-      <HSeparator mb='20px' />
+     <HSeparator mb='20px' /> 
     </Flex>
   );
 }

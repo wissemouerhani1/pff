@@ -63,3 +63,12 @@ module.exports.signIn = async (req,res)=>{
             console.log(error)
     }
 }
+
+
+
+
+module.exports.CreateEmploye= async(req,res)=> {
+  const users = await User.findAll();
+  return   res.json(users)
+  }
+  

@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Table, Thead, Tbody, Tr, Th, Td, TableCaption, TableContainer } from '@chakra-ui/react';
 import axios from 'axios';
 import { AiOutlineDownload } from 'react-icons/ai';
+import { QRCode } from 'react-qr-code';
+import { toDataURL } from 'qrcode';
+import jsPDF from 'jspdf';
 
 const CourrierInformation = () => {
   const [courierData, setCourierData] = useState([]);
@@ -20,9 +23,30 @@ const CourrierInformation = () => {
     fetchCourierData();
   }, []);
 
-  const downloadCourier = (courier) => {
-    // Implement your download logic here
-    console.log('Downloading courier:', courier);
+  const generateQRCodePDF = async (courier) => {
+    const doc = new jsPDF();
+
+    // Generate QR code with courier information
+    const qrCodeData = JSON.stringify(courier);
+
+    // Convert QR code to data URL
+    const qrCodeDataURL = await toDataURL(qrCodeData);
+
+    // Get page dimensions
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    // Calculate position to center QR code
+    const qrCodeWidth = 50; // Width of the QR code
+    const qrCodeHeight = 50; // Height of the QR code
+    const xPos = (pageWidth - qrCodeWidth) / 2;
+    const yPos = (pageHeight - qrCodeHeight) / 2;
+
+    // Add QR code to the PDF document at the center
+    doc.addImage(qrCodeDataURL, 'PNG', xPos, yPos, qrCodeWidth, qrCodeHeight);
+
+    // Save the PDF file
+    doc.save(`courier_${courier.courrierid}_qr.pdf`);
   };
 
   return (
@@ -32,12 +56,12 @@ const CourrierInformation = () => {
           <TableCaption>Courier Information</TableCaption>
           <Thead>
             <Tr>
-              <Th>Courrier id</Th>
+              <Th>Courrier ID</Th>
               <Th>Client Name</Th>
               <Th>Adresse</Th>
               <Th>Prix</Th>
               <Th>Type</Th>
-              <Th>Statue</Th>
+              <Th>Status</Th>
               <Th>Download</Th> {/* New column for download */}
             </Tr>
           </Thead>
@@ -53,7 +77,7 @@ const CourrierInformation = () => {
                 <Td>
                   <AiOutlineDownload
                     size={20}
-                    onClick={() => downloadCourier(courier)}
+                    onClick={() => generateQRCodePDF(courier)}
                   />
                 </Td>
               </Tr>

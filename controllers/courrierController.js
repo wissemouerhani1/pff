@@ -1,80 +1,65 @@
-const { courrier } = require("../database/models")
+const { courrier } = require("../database/models");
 const { v4: uuidv4 } = require('uuid');
 
 module.exports.createCourrier = async (req, res) => {
   try {
-    const courrier = await courrier.create({
+    const newCourrier = await courrier.create({
       ...req.body,
       courrierid: uuidv4()
     });
-    return res.json("courrier created")
+    return res.json(newCourrier);
   } catch (error) {
-    throw new Error(error)
+    console.error(error);
+    return res.status(500).json({ message: 'Error creating courrier' });
   }
-
-
-}
+};
 
 module.exports.deleteCourrier = async (req, res) => {
+  const { id } = req.params;
   try {
-   await courrier.destroy({
-      where: {
-        id: req.params.id
-      }
-    })
-    return res.json("Courrier deleted")
+    await courrier.destroy({
+      where: { id }
+    });
+    return res.json({ message: 'Courrier deleted' });
   } catch (error) {
-    throw new Error(error)
+    console.error(error);
+    return res.status(500).json({ message: 'Error deleting courrier' });
   }
-
-
-}
-
+};
 
 module.exports.UpdateCourrier = async (req, res) => {
   const { id } = req.params;
   try {
-    // Find the record to be updated
     const record = await courrier.findByPk(id);
 
     if (record) {
-      // Update the record
-      await courrier.update({ ...req.body }, {
-        where: { id }
-      });
-
-      // Fetch the updated record
-
-      res.json("Courrier updated ");
+      await courrier.update({ ...req.body }, { where: { id } });
+      return res.json({ message: 'Courrier updated' });
     } else {
-      res.status(404).json({ message: 'Record not found' });
+      return res.status(404).json({ message: 'Record not found' });
     }
   } catch (error) {
-    res.status(500).json({ message: 'Error updating record', error });
+    console.error(error);
+    return res.status(500).json({ message: 'Error updating courrier' });
   }
 };
-
-
 
 module.exports.getAllCourrier = async (req, res) => {
   try {
-
-    // Fetch all records from the model
     const records = await courrier.findAll();
-    res.json(records);
+    return res.json(records);
   } catch (error) {
-    res.status(500).json({ message: 'Error retrieving records', error });
+    console.error(error);
+    return res.status(500).json({ message: 'Error retrieving courriers' });
   }
 };
 
-
-
-
 module.exports.getCourrierCount = async (req, res) => {
   try {
-    const records = await courrier.count();
-    res.json(records);
+    const count = await courrier.count();
+    return res.json(count);
   } catch (error) {
-    res.status(500).json({ message: 'Error retrieving records', error });
+    console.error(error);
+    return res.status(500).json({ message: 'Error retrieving courrier count' });
   }
 };

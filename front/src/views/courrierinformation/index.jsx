@@ -1,66 +1,68 @@
-import React from 'react'
-import {
-    Table,
-    Thead,
-    Tbody,
-    Tfoot,
-    Tr,
-    Th,
-    Td,
-    TableCaption,
-    TableContainer,
-  } from '@chakra-ui/react'
+import React, { useState, useEffect } from 'react';
+import { Table, Thead, Tbody, Tr, Th, Td, TableCaption, TableContainer } from '@chakra-ui/react';
+import axios from 'axios';
+import { AiOutlineDownload } from 'react-icons/ai';
 
-const CourrierInformation= () => {
+const CourrierInformation = () => {
+  const [courierData, setCourierData] = useState([]);
+
+  useEffect(() => {
+    const fetchCourierData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3333/courrier/getAllCourrier');
+        const data = response.data;
+        setCourierData(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchCourierData();
+  }, []);
+
+  const downloadCourier = (courier) => {
+    // Implement your download logic here
+    console.log('Downloading courier:', courier);
+  };
+
   return (
     <div>
-        <br /><br /><br /><br /><br /><br /><br /><br />
-        <TableContainer>
-  <Table variant='simple'>
-    <TableCaption>Courrier Information</TableCaption>
-    <Thead>
-      <Tr>
-        <Th>Courrier id</Th>
-        <Th>Client Name</Th>
-        <Th >Adresse</Th>
-        <Th >Prix</Th>
-        <Th >Type</Th>
-        <Th >Statue</Th>
-        
-      </Tr>
-    </Thead>
-    <Tbody>
-      <Tr>
-        <Td>KHC548KH</Td>
-        <Td>mariem</Td>
-        <Td >rue23 ,Tunis</Td>
-        <Td >70</Td>
-        <Td >chaussure</Td>
-        <Td >delivred</Td>
-      </Tr>
-      <Tr>
-        <Td></Td>
-        <Td></Td>
-        <Td ></Td>
-      </Tr>
-      <Tr>
-        <Td></Td>
-        <Td></Td>
-        <Td ></Td>
-      </Tr>
-    </Tbody>
-    <Tfoot>
-      <Tr>
-        <Th></Th>
-        <Th></Th>
-        <Th ></Th>
-      </Tr>
-    </Tfoot>
-  </Table>
-</TableContainer>
-                 
+      <TableContainer>
+        <Table variant="simple">
+          <TableCaption>Courier Information</TableCaption>
+          <Thead>
+            <Tr>
+              <Th>Courrier id</Th>
+              <Th>Client Name</Th>
+              <Th>Adresse</Th>
+              <Th>Prix</Th>
+              <Th>Type</Th>
+              <Th>Statue</Th>
+              <Th>Download</Th> {/* New column for download */}
+            </Tr>
+          </Thead>
+          <Tbody>
+            {courierData.map((courier) => (
+              <Tr key={courier.id}>
+                <Td>{courier.courrierid}</Td>
+                <Td>{courier.clientName}</Td>
+                <Td>{courier.adresse}</Td>
+                <Td>{courier.prix}</Td>
+                <Td>{courier.type}</Td>
+                <Td>{courier.status}</Td>
+                <Td>
+                  <AiOutlineDownload
+                    size={20}
+                    onClick={() => downloadCourier(courier)}
+                  />
+                </Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
     </div>
-  )
-}
+  );
+};
 
-export default CourrierInformation
+export default CourrierInformation;

@@ -41,8 +41,8 @@ const CourrierInformation = () => {
     const pageHeight = doc.internal.pageSize.getHeight();
 
     // Calculate position to place the barcode at the top right
-    const barcodeWidth = 10; // Width of the barcode
-    const barcodeHeight = 10; // Height of the barcode
+    const barcodeWidth = 50; // Width of the barcode
+    const barcodeHeight = 50; // Height of the barcode
     const xPos = pageWidth - barcodeWidth - 10; // 10 is the margin from the right edge
     const yPos = 10; // 10 is the margin from the top edge
 

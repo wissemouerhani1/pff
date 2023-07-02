@@ -11,43 +11,13 @@ import {
   TableContainer,
   Button,
 } from '@chakra-ui/react';
-import { AiFillDelete } from 'react-icons/ai';
-import { saveAs } from 'file-saver';
-import { read, utils } from 'xlsx';
+import { AiFillDelete, AiOutlineEdit } from 'react-icons/ai';
 import axios from 'axios';
-import { PDFDocument, rgb } from 'pdf-lib';
 
 const UserList = () => {
-  const [excelFile, setExcelFile] = useState(null);
   const [userData, setUserData] = useState([]);
-
-  const handleFileChange = (e) => {
-    setExcelFile(e.target.files[0]);
-  };
-
-  useEffect(() => {
-    if (excelFile) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        const data = new Uint8Array(e.target.result);
-        const workbook = read(data, { type: 'array' });
-        const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-        const excelData = utils.sheet_to_json(worksheet, { header: 1 });
-
-        const users = excelData.slice(1).map((row) => ({
-          name: row[0],
-          last_name: row[1],
-          cin: row[2],
-          email: row[3],
-          phone: row[4],
-        }));
-
-        setUserData(users);
-      };
-
-      reader.readAsArrayBuffer(excelFile);
-    }
-  }, [excelFile]);
+  const [editingUser, setEditingUser] = useState(null);
+  const [editedValues, setEditedValues] = useState({});
 
   useEffect(() => {
     axios.get('http://localhost:3333/customer/getAllCustomer').then((res) => {
@@ -55,67 +25,46 @@ const UserList = () => {
     });
   }, []);
 
-  const generatePdf = async () => {
+  const handleDelete = async (id) => {
     try {
-      const pdfDoc = await PDFDocument.create();
-      const page = pdfDoc.addPage();
-
-      const { width, height } = page.getSize();
-      const fontSize = 12;
-      const textX = 50;
-      let textY = height - 50;
-
-      userData.forEach((user) => {
-        page.drawText(`Name: ${user.name}`, {
-          x: textX,
-          y: textY,
-          size: fontSize,
-          color: rgb(0, 0, 0),
-        });
-        textY -= fontSize + 5;
-        page.drawText(`Last Name: ${user.last_name}`, {
-          x: textX,
-          y: textY,
-          size: fontSize,
-          color: rgb(0, 0, 0),
-        });
-        textY -= fontSize + 5;
-        page.drawText(`Cin: ${user.cin}`, {
-          x: textX,
-          y: textY,
-          size: fontSize,
-          color: rgb(0, 0, 0),
-        });
-        textY -= fontSize + 5;
-        page.drawText(`Email: ${user.email}`, {
-          x: textX,
-          y: textY,
-          size: fontSize,
-          color: rgb(0, 0, 0),
-        });
-        textY -= fontSize + 5;
-        page.drawText(`Phone: ${user.phone}`, {
-          x: textX,
-          y: textY,
-          size: fontSize,
-          color: rgb(0, 0, 0),
-        });
-        textY -= fontSize + 10;
-      });
-
-      const pdfBytes = await pdfDoc.save();
-
-      const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-      saveAs(blob, 'updated_user_list.pdf');
+      await axios.delete(`http://localhost:3333/customer/deleteCustomer/${id}`);
+      setUserData((prevData) => prevData.filter((user) => user.id !== id));
     } catch (error) {
       console.error(error);
     }
   };
 
+  const handleEdit = (user) => {
+    setEditingUser(user);
+    setEditedValues({
+      name: user.name,
+      last_name: user.last_name,
+      cin: user.cin,
+      email: user.email,
+      phone: user.phone,
+    });
+  };
+
+  const handleSave = async (user) => {
+    try {
+      await axios.put(`http://localhost:3333/customer/updateCustomer/${user.id}`, editedValues);
+      setEditingUser(null);
+      setEditedValues({});
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleInputChange = (e, key) => {
+    const { value } = e.target;
+    setEditedValues((prevValues) => ({
+      ...prevValues,
+      [key]: value,
+    }));
+  };
+
   return (
     <div>
-      <input type="file" accept=".xlsx" onChange={handleFileChange} />
-
       <TableContainer sx={{ marginTop: '6rem' }}>
         <Table variant="simple">
           <TableCaption>User List</TableCaption>
@@ -126,28 +75,90 @@ const UserList = () => {
               <Th>Cin</Th>
               <Th>Email</Th>
               <Th>Phone</Th>
+              <Th>Edit</Th>
               <Th>Delete</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {userData?.map((user, index) => (
-              <Tr key={index}>
-                <Th>{user.name}</Th>
-                <Th>{user.last_name}</Th>
-                <Th>{user.cin}</Th>
-                <Th>{user.email}</Th>
-                <Th>{user.phone}</Th>
+            {userData?.map((user) => (
+              <Tr key={user.id}>
                 <Td>
-                  <Icon w="32px" h="32px" as={AiFillDelete} />
+                  {editingUser === user ? (
+                    <input
+                      value={editedValues.name || ''}
+                      onChange={(e) => handleInputChange(e, 'name')}
+                    />
+                  ) : (
+                    user.name
+                  )}
+                </Td>
+                <Td>
+                  {editingUser === user ? (
+                    <input
+                      value={editedValues.last_name || ''}
+                      onChange={(e) => handleInputChange(e, 'last_name')}
+                    />
+                  ) : (
+                    user.last_name
+                  )}
+                </Td>
+                <Td>
+                  {editingUser === user ? (
+                    <input
+                      value={editedValues.cin || ''}
+                      onChange={(e) => handleInputChange(e, 'cin')}
+                    />
+                  ) : (
+                    user.cin
+                  )}
+                </Td>
+                <Td>
+                  {editingUser === user ? (
+                    <input
+                      value={editedValues.email || ''}
+                      onChange={(e) => handleInputChange(e, 'email')}
+                    />
+                  ) : (
+                    user.email
+                  )}
+                </Td>
+                <Td>
+                  {editingUser === user ? (
+                    <input
+                      value={editedValues.phone || ''}
+                      onChange={(e) => handleInputChange(e, 'phone')}
+                    />
+                  ) : (
+                    user.phone
+                  )}
+                </Td>
+                <Td>
+                  {editingUser === user ? (
+                    <Button size="sm" onClick={() => handleSave(user)}>
+                      Save
+                    </Button>
+                  ) : (
+                    <Icon
+                      w="32px"
+                      h="32px"
+                      as={AiOutlineEdit}
+                      onClick={() => handleEdit(user)}
+                    />
+                  )}
+                </Td>
+                <Td>
+                  <Icon
+                    w="32px"
+                    h="32px"
+                    as={AiFillDelete}
+                    onClick={() => handleDelete(user.id)}
+                  />
                 </Td>
               </Tr>
             ))}
           </Tbody>
         </Table>
       </TableContainer>
-      <Button onClick={generatePdf} mt="4">
-        Generate PDF
-      </Button>
     </div>
   );
 };

@@ -28,7 +28,7 @@ const App = () => {
         return (
         <>
         <Route  path={`/auth`} component={AuthLayout} />
-        <Redirect from='/' to='/auth/sign-in' />
+        <Redirect from='/' to='auth/home-home' />
         </>
         )
     }

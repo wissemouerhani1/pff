@@ -9,14 +9,14 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 // Assets
-import Usa from "assets/img/dashboards/usa.png";
+
 // Custom components
 import MiniCalendar from "components/calendar/MiniCalendar";
 import MiniStatistics from "components/card/MiniStatistics";
 import IconBox from "components/icons/IconBox";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-import Tasks from "views/admin/default/components/Tasks";
+
 import {
   MdAddTask,
   MdAttachMoney,
@@ -32,8 +32,40 @@ import{
 
 }
 from "react-icons/bs";
+import axios from "axios";
 
 export default function UserReports() {
+  const [driverCount,setDriverCount]=useState(0)
+  const [vehiculeCount,setVehiculeCount]=useState(0)
+  const [customerCount,setCustomerCount]=useState(0)
+  
+  const [CourrierCount,setCourrierCount]=useState(0)
+  useEffect(() => {
+    axios.get("http://localhost:3333/driver/getDriverCount").then(res=>{
+      setDriverCount(res?.data)
+    })
+  }, [])
+  
+
+  useEffect(() => {
+    axios.get("http://localhost:3333/vehicule/getVehiculeCount").then(res=>{
+      setVehiculeCount(res?.data)
+    })
+  }, [])
+  
+  
+  useEffect(() => {
+    axios.get("http://localhost:3333/customer/getCustomerCount").then(res=>{
+      setCustomerCount(res?.data)
+    })
+  }, [])
+  useEffect(() => {
+    axios.get("http://localhost:3333/courrier/getCourrierCount").then(res=>{
+      setCourrierCount(res?.data)
+    })
+  }, [])
+ 
+
   // Chakra Color Mode
   const brandColor = useColorModeValue("brand.500", "white");
   const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
@@ -55,7 +87,7 @@ export default function UserReports() {
             />
           }
           name='Customers'
-          value='50'
+          value={customerCount}
         />
         <MiniStatistics
           startContent={
@@ -69,7 +101,7 @@ export default function UserReports() {
             />
           }
           name='Drivers'
-          value='7'
+          value={driverCount}
         />
         <MiniStatistics
           startContent={
@@ -81,7 +113,7 @@ export default function UserReports() {
             />
           }
           name='Vehicule'
-          value='154'
+          value={vehiculeCount}
         />
         <MiniStatistics
           startContent={
@@ -93,22 +125,9 @@ export default function UserReports() {
             />
           }
           name='Courriers'
-          value='154'
+          value={CourrierCount}
         />
-        <MiniStatistics
-          startContent={
-            <IconBox
-              w='56px'
-              h='56px'
-              bg={boxBg}
-              icon={
-                <Icon w='32px' h='32px' as={MdFileCopy} color={brandColor} />
-              }
-            />
-          }
-          name='Total Projects'
-          value='2935'
-        />
+        
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} gap='20px'>
           <MiniCalendar h='100%' minW='100%' selectRange={false} />

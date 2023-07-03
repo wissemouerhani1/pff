@@ -45,7 +45,7 @@ export default function HeaderLinks(props) {
 
 	const handleLogOut = ()=> {
 		localStorage.removeItem("user")
-		window.location.href = "/"
+		window.location.href = "/home"
 	}
 	
 	return (

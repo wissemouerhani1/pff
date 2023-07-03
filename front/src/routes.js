@@ -31,13 +31,24 @@ import UserList from "views/userList";
 import BecomeMember from "views/auth/becomeamember";
 import CourrierInformation from "views/courrierinformation";
 import Newmember from "views/Newmember";
+
 // Auth Imports
 import SignInCentered from "views/auth/signIn";
 import SignUpCentred from "views/auth/signup";
-
+import home from "views/auth/home_";
 const role = JSON.parse(localStorage.getItem("user"))?.role
 let routes = [
+    {
+      name: "Home",
+      layout: "/auth",
+      path: "/home-home",
+      icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
+      component: home, // Replace 'Home' with the component you want to render for the home page
+    },
+  
+  
   {
+
     name: "Sign In",
     layout: "/auth",
     path: "/sign-in",

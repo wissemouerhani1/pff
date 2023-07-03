@@ -63,3 +63,38 @@ module.exports.getCourrierCount = async (req, res) => {
     return res.status(500).json({ message: 'Error retrieving courrier count' });
   }
 };
+
+
+module.exports.updateStaus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {status} = req.body
+    const record = await courrier.findByPk(id);
+
+    if (record) {
+      await courrier.update({ status }, { where: { id } });
+      return res.json({ message: 'status updated' });
+    } else {
+      return res.status(404).json({ message: 'Record not found' });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Error retrieving courrier count' });
+  }
+};
+
+
+module.exports.getAllReturnedCourrier = async (req, res) => {
+  try {
+    const record = await courrier.findAll({
+      where: {
+        status: "return package"
+      }
+    });
+
+      res.json({record,count:record.length})
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Error retrieving courrier count' });
+  }
+};

@@ -116,14 +116,7 @@ if (role==="admin"){
       icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
       component: VehiculeList,
     },
-    {
-      name: "Transactions",
-      layout: "/admin",
-      path: "/transactions",
-      role:"admin",
-      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-      component: Transactions,
-    },
+    
     {
       name: "DriverList",
       layout: "/admin",
@@ -344,6 +337,14 @@ const routes1 = [
     path: "/rtl-default",
     icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
     component: RTL,
+  },
+  {
+    name: "Transactions",
+    layout: "/admin",
+    path: "/transactions",
+    role:"admin",
+    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+    component: Transactions,
   },
 ];
 

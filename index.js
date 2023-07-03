@@ -20,7 +20,8 @@ const becomememberRoute = require("./routes/becomememberRoute")
   app.use("/vehicule",vehiculeRoute);
   app.use("/driver",driverRoute);
   app.use("/courrier",CourrierRoute);
-  app.use("/becomemember", becomememberRoute)
+  app.use("/becomemember", becomememberRoute);
+
 
 
   app.listen(port, () => {

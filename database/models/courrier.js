@@ -22,7 +22,13 @@ module.exports = (sequelize, DataTypes) => {
     phone: DataTypes.INTEGER,
     quantity: DataTypes.INTEGER,
     type: DataTypes.STRING,
-    prix: DataTypes.INTEGER
+    prix: DataTypes.INTEGER,
+    status:{
+      type: DataTypes.STRING,
+      defaultValue: "At warehouse",
+    },
+  
+    
   }, {
     sequelize,
     modelName: 'courrier',

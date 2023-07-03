@@ -36,6 +36,10 @@ module.exports = {
       prix: {
         type: Sequelize.INTEGER
       },
+      status: {
+        type: Sequelize.STRING,
+         defaultValue :"At warehouse"
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -14,7 +14,7 @@ import Usa from "assets/img/dashboards/usa.png";
 import MiniCalendar from "components/calendar/MiniCalendar";
 import MiniStatistics from "components/card/MiniStatistics";
 import IconBox from "components/icons/IconBox";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Tasks from "views/admin/default/components/Tasks";
 import {
@@ -32,8 +32,15 @@ import{
 
 }
 from "react-icons/bs";
+import axios from "axios";
 
 export default function UserReports() {
+  const [CourrierCount,setCourrierCount]=useState(0)
+  useEffect(() => {
+    axios.get("http://localhost:3333/courrier/getCourrierCount").then(res=>{
+      setCourrierCount(res?.data)
+    })
+  }, [])
   // Chakra Color Mode
   const brandColor = useColorModeValue("brand.500", "white");
   const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
@@ -55,7 +62,7 @@ export default function UserReports() {
             />
           }
           name='Courriers'
-          value='50'
+          value={CourrierCount}
         />
         <MiniStatistics
           startContent={
@@ -76,38 +83,14 @@ export default function UserReports() {
             <IconBox
               w='56px'
               h='56px'
-              bg='linear-gradient(90deg, #4481EB 0%, #04BEFE 100%)'
-              icon={<Icon w='28px' h='28px' as={BsFillCarFrontFill} color='white' />}
-            />
-          }
-          name='Payments'
-          value='154'
-        />
-        <MiniStatistics
-          startContent={
-            <IconBox
-              w='56px'
-              h='56px'
-              bg='linear-gradient(90deg, #4481EB 0%, #04BEFE 100%)'
-              icon={<Icon w='28px' h='28px' as={BsFillCarFrontFill} color='white' />}
-            />
-          }
-          name='Courriers'
-          value='154'
-        />
-        <MiniStatistics
-          startContent={
-            <IconBox
-              w='56px'
-              h='56px'
               bg={boxBg}
               icon={
                 <Icon w='32px' h='32px' as={MdFileCopy} color={brandColor} />
               }
             />
           }
-          name='Dekivred '
-          value='2935'
+          name='Delivred '
+          value='2'
         />
         
         <MiniStatistics
@@ -122,7 +105,7 @@ export default function UserReports() {
             />
           }
           name='At Warhouse '
-          value='2935'
+          value='2'
         />
       </SimpleGrid>
       

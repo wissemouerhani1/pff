@@ -6,14 +6,15 @@ import { toDataURL } from 'qrcode';
 import jsPDF from 'jspdf';
 import JsBarcode from 'jsbarcode';
 import modelImage from 'assets/model.png';
+import { Select } from '@chakra-ui/react'
 
 const CourrierInformation = () => {
   const [courierData, setCourierData] = useState([]);
   const [editingCourier, setEditingCourier] = useState(null);
   const [editedValues, setEditedValues] = useState({});
   const canvasRef = useRef(null);
-
-  useEffect(() => {
+  const role = JSON.parse(localStorage.getItem("user"))?.role
+  console.log(role,"role")
     const fetchCourierData = async () => {
       try {
         const response = await axios.get('http://localhost:3333/courrier/getAllCourrier');
@@ -24,6 +25,8 @@ const CourrierInformation = () => {
       }
     };
 
+  useEffect(() => {
+  
     fetchCourierData();
   }, []);
 
@@ -92,7 +95,13 @@ const CourrierInformation = () => {
       status: courier.status,
     });
   };
-
+  const updateStatus=async(status,id)=>{
+    console.log({status,id})
+    await axios.put(`http://localhost:3333/courrier/updateStatus/${id}`,{
+      status
+    })
+    await fetchCourierData()
+  }
   const handleSave = async (courier) => {
     try {
       await axios.put(`http://localhost:3333/courrier/updateCourrier/${courier.id}`, {
@@ -207,18 +216,26 @@ const CourrierInformation = () => {
                   )}
                 </Td>
                 <Td>
-                  {editingCourier === courier ? (
-                    <Input
-                      value={editedValues.status || ''}
-                      onChange={(e) => handleInputChange(e, 'status')}
-                      placeholder="Status"
-                    />
+                 {
+                  role ==="employe" ? 
+                  (editingCourier === courier ? (
+                    <Select placeholder='Select option' onChange={
+                      (e)=> updateStatus(e.target.value,courier.id)
+                    }>
+  <option value='staus1'>staus1</option>
+  <option value='status2'>status2</option>
+  <option value='return package'>return package </option>
+</Select>
                   ) : (
                     courier.status
-                  )}
+                  )):
+                  courier.status
+                 }   
+                
                 </Td>
                 <Td>
                   <AiOutlineDownload
+                  
                     size={20}
                     onClick={() => generateQRCodePDF(courier)}
                   />

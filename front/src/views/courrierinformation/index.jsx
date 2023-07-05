@@ -222,8 +222,10 @@ const CourrierInformation = () => {
                     <Select placeholder='Select option' onChange={
                       (e)=> updateStatus(e.target.value,courier.id)
                     }>
-  <option value='staus1'>staus1</option>
-  <option value='status2'>status2</option>
+  <option value='Confirmed'>confirmed</option>
+  <option value='At Warehouse'>at warehouse</option>
+  <option value='In Progress'>in progress</option>
+  <option value='Delivred'>delivred</option>
   <option value='return package'>return package </option>
 </Select>
                   ) : (

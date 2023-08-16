@@ -62,21 +62,21 @@ const CaptionCarousel = () => {
 
 
     {
-      title: 'Design Projects 1',
+      title: '',
       text:
-        "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
+        "Fast and Reliable. Get your orders delivered quickly and reliably right to your destinations.",
       image:firstphoto,
       
     },
     {
-      title: 'Design Projects 2',
+      title: ' ',
       text:
-        "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
+        "Real-time Order Tracking. Stay informed with live updates on the status of your delivery every step of the way.",
       image:secondphoto
         
     },
     {
-      title: 'Design Projects 3',
+      title: '',
       text:
         "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
       image:

@@ -80,15 +80,8 @@ if (role==="admin"){
       icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
       component: MainDashboard,
     },
-  
-    {
-      name: "Employe List",
-      layout: "/admin",
-      path: "/employelist",
-      role:"admin",
-      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-      component: EmployeList,
-    },
+    
+    
     
     {
       name: "New Member list",
@@ -98,18 +91,33 @@ if (role==="admin"){
       icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
       component: Newmember,
     },
+  
+    
+    
     {
-      name: "UserList",
+      name: "Create Employe",
       layout: "/admin",
-      path: "/userlist",
+      icon: <Icon as={MdBarChart} width='20px' height='20px' color='inherit' />,
+      path: "/createmploye ",
+      role:"admin",
+      component: CreateEmpolye,
+    },
+    {
+      name: "Create User",
+      layout: "/admin",
+      path: "/createuser",
       role:"admin",
       icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-      component: UserList,
-    },
-    
-    
-    
+      component: CreateUser,
   
+    },{
+      name: "CreateDriver",
+      layout: "/admin",
+      path: "/createdriver",
+      role:"admin",
+      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+      component: CreateDriver,
+    },
     {
       name: "AddVehicule",
       layout: "/admin",
@@ -119,6 +127,26 @@ if (role==="admin"){
       component: AddVehicule,
     },
   
+    
+    
+    {
+      name: "Employe List",
+      layout: "/admin",
+      path: "/employelist",
+      role:"admin",
+      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+      component: EmployeList,
+    },
+    
+  
+    {
+      name: "UserList",
+      layout: "/admin",
+      path: "/userlist",
+      role:"admin",
+      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+      component: UserList,
+    },
     {
       name: "VehiculeList",
       layout: "/admin",
@@ -135,32 +163,6 @@ if (role==="admin"){
       role:"admin",
       icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
       component: DriverList,
-    },
-    {
-      name: "CreateDriver",
-      layout: "/admin",
-      path: "/createdriver",
-      role:"admin",
-      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-      component: CreateDriver,
-    },
-    
-    {
-      name: "Create User",
-      layout: "/admin",
-      path: "/createuser",
-      role:"admin",
-      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-      component: CreateUser,
-  
-    },
-    {
-      name: "Create Employe",
-      layout: "/admin",
-      icon: <Icon as={MdBarChart} width='20px' height='20px' color='inherit' />,
-      path: "/createmploye ",
-      role:"admin",
-      component: CreateEmpolye,
     },
         
   )
@@ -215,7 +217,7 @@ else if (role ==="employe"){
   
   
     {
-      name: "Courrier Information",
+      name: " See All Courrier ",
       layout: "/admin",
       path: "/courrier_information",
       icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,

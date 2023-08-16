@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Flex,
   Box,
@@ -12,36 +12,67 @@ import {
   Button,
   Heading,
   useColorModeValue,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import axios from 'axios'
+import axios from 'axios';
+
 const CreateUser = () => {
   const [showPassword, setShowPassword] = useState(false);
-  
-  const [name,setName]=useState("")
-  const [last_name,setLastName]=useState("")
-  const [email,setEmail]=useState("")
-  const [phone,setPhone]=useState("")
-  const [cin,setCin]=useState("")
-  const [password,setPassword]=useState("")
-    console.log({
-      name,last_name,email,phone,cin,password
-    })
-  const handleCreateUser = async()=> {
+  const [userCreated, setUserCreated] = useState(false);
+
+  const [name, setName] = useState('');
+  const [last_name, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [cin, setCin] = useState('');
+  const [password, setPassword] = useState('');
+
+  const [showDialog, setShowDialog] = useState(false);
+
+  const handleCreateUser = async () => {
     try {
-      
-      await axios.post("http://localhost:3333/customer/createCustomer",{
-        name,last_name,email,phone,cin,password
-      })
-      
+      await axios.post('http://localhost:3333/customer/createCustomer', {
+        name,
+        last_name,
+        email,
+        phone,
+        cin,
+        password,
+      });
+      setUserCreated(true);
+      setShowDialog(true);
+      // Reset input fields after successful user creation
+      setName('');
+      setLastName('');
+      setEmail('');
+      setPhone('');
+      setCin('');
+      setPassword('');
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
-  }
-  
+  };
+
+  useEffect(() => {
+    if (userCreated) {
+      const timer = setTimeout(() => {
+        setShowDialog(false);
+        setUserCreated(false); // Reset userCreated state
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [userCreated]);
+
   return (
     <div>
-  <br /><br />
+      <br />
+      <br />
       <Flex
         minH={'100vh'}
         align={'center'}
@@ -65,39 +96,61 @@ const CreateUser = () => {
                 <Box>
                   <FormControl id="firstName" isRequired>
                     <FormLabel>First Name</FormLabel>
-                    <Input type="text"color={"white"} onChange={(e)=>setName(e.target.value)}
-                     
+                    <Input
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                     />
                   </FormControl>
                 </Box>
                 <Box>
                   <FormControl id="lastName">
                     <FormLabel>Last Name</FormLabel>
-                    <Input type="text" color={"white"} onChange={(e)=>setLastName(e.target.value)} />
+                    <Input
+                      type="text"
+                      value={last_name}
+                      onChange={(e) => setLastName(e.target.value)}
+                    />
                   </FormControl>
                 </Box>
                 <Box>
                   <FormControl id="cin">
                     <FormLabel>CIN</FormLabel>
-                    <Input type="text" color={"white"}  onChange={(e)=>setCin(e.target.value)}/>
+                    <Input
+                      type="text"
+                      value={cin}
+                      onChange={(e) => setCin(e.target.value)}
+                    />
                   </FormControl>
                 </Box>
               </HStack>
               <FormControl id="email" isRequired>
                 <FormLabel>Email address</FormLabel>
-                <Input type="email"  color={"white"} onChange={(e)=>setEmail(e.target.value)}/>
+                <Input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </FormControl>
               <Box>
                 <FormControl id="phonenumber">
                   <FormLabel>Phone Number</FormLabel>
-                  <Input type="text" color={"white"} onChange={(e)=>setPhone(e.target.value)} />
+                  <Input
+                    type="text"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
                 </FormControl>
               </Box>
-              
+
               <FormControl id="password" isRequired>
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
-                  <Input type={showPassword ? 'text' : 'password'} color={"white"} onChange={(e)=>setPassword(e.target.value)} />
+                  <Input
+                    type={showPassword ? 'text' : 'password'}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                   <InputRightElement h={'full'}>
                     <Button
                       variant={'ghost'}
@@ -112,7 +165,7 @@ const CreateUser = () => {
               </FormControl>
               <Stack spacing={10} pt={2}>
                 <Button
-                onClick={handleCreateUser}
+                  onClick={handleCreateUser}
                   loadingText="Submitting"
                   size="lg"
                   bg={'blue.400'}
@@ -129,7 +182,27 @@ const CreateUser = () => {
           </Box>
         </Stack>
       </Flex>
-      </div>    
+
+      <AlertDialog isOpen={showDialog} onClose={() => setShowDialog(false)}>
+        <AlertDialogOverlay />
+        <AlertDialogContent>
+          <AlertDialogHeader>Success</AlertDialogHeader>
+          <AlertDialogBody>User created successfully!</AlertDialogBody>
+          <AlertDialogFooter>
+            <Button
+              colorScheme="blue"
+              onClick={() => {
+                setShowDialog(false);
+                setUserCreated(false); // Reset userCreated state
+              }}
+              ml={3}
+            >
+              Close
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </div>
   );
 };
 

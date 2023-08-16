@@ -39,20 +39,25 @@ function SignIn() {
   const [password, setPassword] = useState("");
   const [loading,setIsLoading]=useState(false)
   const history = useHistory()
-  const handleSignIn = async()=>{
-      try {
-        setIsLoading(true)
-      const {data} =  await  axios.post("http://localhost:3333/sign-in",{
-          email,password
-        })  
-        localStorage.setItem("user", JSON.stringify(data))
-        window.location.reload();
-        setIsLoading(false)
-      } catch (error) {
-        console.log(error)
-        setIsLoading(false)
-      }
-  }  
+  const [errorMessage, setErrorMessage] = useState(null);
+  const handleSignIn = async () => {
+    try {
+      setIsLoading(true);
+      const { data } = await axios.post("http://localhost:3333/sign-in", {
+        email,
+        password,
+      });
+
+      localStorage.setItem("user", JSON.stringify(data));
+      window.location.reload();
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      setErrorMessage("Incorrect email or password"); // Set the error message
+      setIsLoading(false);
+    }
+  };
+
   const handleClick = () => setShow(!show);
   return (
     <DefaultAuth illustrationBackground={illustration} image={illustration}>
@@ -137,7 +142,7 @@ function SignIn() {
                 mb='24px'
                 size='lg'
                 type={show ? "text" : "password"}
-                variant='auth'
+                  variant='auth'
                 onChange={(e)=>setPassword(e.target.value)}
               />
               <InputRightElement display='flex' alignItems='center' mt='4px'>
@@ -176,16 +181,21 @@ function SignIn() {
               </NavLink>
             </Flex>
             <Button
-              fontSize='sm'
-              variant='brand'
-              fontWeight='500'
-              w='100%'
-              h='50'
-              mb='24px'
-              onClick={handleSignIn}
-              >
-              Sign In
-            </Button>
+      fontSize="sm"
+      variant="brand"
+      fontWeight="500"
+      w="100%"
+      h="50"
+      mb="24px"
+      onClick={handleSignIn}
+    >
+      Sign In
+    </Button>
+    {errorMessage && (
+      <Text color="red.500" fontSize="sm" mb="10px">
+        {errorMessage}
+      </Text>
+    )}
           </FormControl>
           <Flex
             flexDirection='column'

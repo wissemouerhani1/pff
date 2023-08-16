@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import { FormLabel, Box, Input, FormControl, Button, Select } from '@chakra-ui/react';
+import { FormLabel, Box, Input, FormControl, Button, Select ,  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,} from '@chakra-ui/react';
 import axios from 'axios';
 
 const AddPackages = () => {
@@ -12,7 +17,7 @@ const AddPackages = () => {
   const [quantity, setQuantity] = useState('');
   const [type, setType] = useState('');
   const [prix, setPrix] = useState('');
-
+  const [showDialog, setShowDialog] = useState(false);
   console.log({
     courrierid,
     name,
@@ -38,6 +43,8 @@ const AddPackages = () => {
         type,
         prix,
       });
+      setShowDialog(true);
+
     } catch (error) {
       console.log(error);
     }
@@ -49,19 +56,19 @@ const AddPackages = () => {
       <Box>
         <FormControl id="courrierid">
           <FormLabel>Courrier ID</FormLabel>
-          <Input type="text" color={'white'} onChange={(e) => setCourrierId(e.target.value)} />
+          <Input type="text"  onChange={(e) => setCourrierId(e.target.value)} />
         </FormControl>
       </Box>
       <Box>
         <FormControl id="name">
           <FormLabel>Name</FormLabel>
-          <Input type="text" color={'white'} onChange={(e) => setName(e.target.value)} />
+          <Input type="text"  onChange={(e) => setName(e.target.value)} />
         </FormControl>
       </Box>
       <Box>
         <FormControl id="lastname">
           <FormLabel>Last Name</FormLabel>
-          <Input type="text" color={'white'} onChange={(e) => setLastName(e.target.value)} />
+          <Input type="text"  onChange={(e) => setLastName(e.target.value)} />
         </FormControl>
       </Box>
       <br />
@@ -95,36 +102,56 @@ const AddPackages = () => {
       <Box>
         <FormControl id="adresse">
           <FormLabel>Adresse</FormLabel>
-          <Input type="text" color={'white'} onChange={(e) => setAdresse(e.target.value)} />
+          <Input type="text"  onChange={(e) => setAdresse(e.target.value)} />
         </FormControl>
       </Box>
       <Box>
         <FormControl id="phone">
           <FormLabel>Phone</FormLabel>
-          <Input type="text" color={'white'} onChange={(e) => setPhone(e.target.value)} />
+          <Input type="text"  onChange={(e) => setPhone(e.target.value)} />
         </FormControl>
       </Box>
       <Box>
         <FormControl id="Quantity">
           <FormLabel>Quantity</FormLabel>
-          <Input type="text" color={'white'} onChange={(e) => setQuantity(e.target.value)} />
+          <Input type="text"  onChange={(e) => setQuantity(e.target.value)} />
         </FormControl>
       </Box>
       <Box>
         <FormControl id="type">
           <FormLabel>Type</FormLabel>
-          <Input type="text" color={'white'} onChange={(e) => setType(e.target.value)} />
+          <Input type="text"  onChange={(e) => setType(e.target.value)} />
         </FormControl>
       </Box>
       <Box>
         <FormControl id="prix">
           <FormLabel>Prix</FormLabel>
-          <Input type="text" color={'white'} onChange={(e) => setPrix(e.target.value)} />
+          <Input type="text"  onChange={(e) => setPrix(e.target.value)} />
         </FormControl>
       </Box>
       <Button onClick={handleCreateCourrier} colorScheme="blue">
         Save
       </Button>
+      <AlertDialog isOpen={showDialog} onClose={() => setShowDialog(false)}>
+        <AlertDialogOverlay />
+        <AlertDialogContent>
+          <AlertDialogHeader>Success</AlertDialogHeader>
+          <AlertDialogBody>Package added successfully!</AlertDialogBody>
+          <AlertDialogFooter>
+            <Button
+              colorScheme="blue"
+              onClick={() => {
+                setShowDialog(false);
+                setCourrierId(false); // Reset userCreated state
+              }}
+              ml={3}
+            >
+              Close
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    
     </div>
   );
 };

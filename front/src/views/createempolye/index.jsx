@@ -12,6 +12,12 @@ import {
   Button,
   Heading,
   useColorModeValue,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
  
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
@@ -20,19 +26,20 @@ import axios from 'axios';
 
 const CreateEmploye = () => {
   const [showPassword, setShowPassword] = useState(false);
-  
+  const [userCreated, setUserCreated] = useState(false);
   const [name, setName] = useState("");
   const [last_name, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [cin, setCin] = useState("");
   const [password, setPassword] = useState("");
-  
+  const [showDialog, setShowDialog] = useState(false);
   const handleCreateEmploye = async () => {
     try {
       await axios.post("http://localhost:3333/employe/createEmploye", {
         name, last_name, email, phone, cin, password
       });
+      setShowDialog(true);
     } catch (error) {
       console.log(error);
     }
@@ -124,6 +131,26 @@ const CreateEmploye = () => {
           </Box>
         </Stack>
       </Flex>
+      <AlertDialog isOpen={showDialog} onClose={() => setShowDialog(false)}>
+        <AlertDialogOverlay />
+        <AlertDialogContent>
+          <AlertDialogHeader>Success</AlertDialogHeader>
+          <AlertDialogBody>Employee created successfully!</AlertDialogBody>
+          <AlertDialogFooter>
+            <Button
+              colorScheme="blue"
+              onClick={() => {
+                setShowDialog(false);
+                setUserCreated(false); // Reset userCreated state
+              }}
+              ml={3}
+            >
+              Close
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    
     </div>  
   );
 };

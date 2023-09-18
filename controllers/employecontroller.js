@@ -86,7 +86,7 @@ module.exports.deleteEmploye = async(req,res)=>{
 
       // Fetch all records from the model
       const records = await User.findAll({
-        where:{role:"customer"}
+        where:{role:"employe"}
       });
           res.json(records);
     } catch (error) {

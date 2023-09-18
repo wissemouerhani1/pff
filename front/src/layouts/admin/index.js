@@ -16,8 +16,9 @@ export default function Dashboard(props) {
   const [fixed] = useState(false);
   const [toggleSidebar, setToggleSidebar] = useState(false);
   // functions for changing the states from components
-  
-  
+  const role = JSON.parse(localStorage.getItem("user"))?.role ;
+  console.log(role,'role')
+
 
   const getRoute = () => {
     return window.location.pathname !== "/admin/full-screen-maps";
@@ -94,6 +95,7 @@ export default function Dashboard(props) {
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
       if (prop.layout === "/admin") {
+        console.log(prop.layout + prop.path,'prop.layout + prop.path')
         return (
           <Route
             path={prop.layout + prop.path}
@@ -158,7 +160,7 @@ export default function Dashboard(props) {
               pt='50px'>
               <Switch>
                 {getRoutes(routes)}
-                <Redirect from='/' to='/admin/default' />
+                {role ==="admin" ? <Redirect from='/' to='/admin/default' />:(role==='customer'?<Redirect from='/' to='/admin/users' />:<Redirect from='/' to='/admin/employe' />)}
               </Switch>
             </Box>
           ) : null}

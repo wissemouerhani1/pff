@@ -23,6 +23,10 @@ import {
 } from "react-icons/md";
 
 import{
+  BiPackage,
+}
+from "react-icons/bi";
+import{
   BsPerson,
   CiDeliveryTruck,
   BsPersonBoundingBox,
@@ -106,7 +110,7 @@ export default function UserReports() {
               w='56px'
               h='56px'
               bg='linear-gradient(90deg, #4481EB 0%, #04BEFE 100%)'
-              icon={<Icon w='28px' h='28px' as={BsFillCarFrontFill} color='white' />}
+              icon={<Icon w='28px' h='28px' as={BsPerson} color='white' />}
             />
           }
           name='Users'
@@ -130,26 +134,13 @@ export default function UserReports() {
               w='56px'
               h='56px'
               bg='linear-gradient(90deg, #4481EB 0%, #04BEFE 100%)'
-              icon={<Icon w='28px' h='28px' as={BsFillCarFrontFill} color='white' />}
+              icon={<Icon w='28px' h='28px' as={ BiPackage} color='white' />}
             />
           }
           name='Courriers'
           value='154'
         />
-        <MiniStatistics
-          startContent={
-            <IconBox
-              w='56px'
-              h='56px'
-              bg={boxBg}
-              icon={
-                <Icon w='32px' h='32px' as={MdFileCopy} color={brandColor} />
-              }
-            />
-          }
-          name='Total Projects'
-          value='2935'
-        />
+        
       </SimpleGrid>
 
       <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>

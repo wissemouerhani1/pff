@@ -6,10 +6,13 @@ import {
   MdPerson,
   MdHome,
   MdLock,
-  
-} from "react-icons/md";
 
-// Admin Imports
+  
+
+} from "react-icons/md";
+import { AiOutlineMedicineBox } from "react-icons/ai";
+
+// Admin Imports 
 import MainDashboard from "views/admin/default";
 import Profile from "views/admin/profile";
 import Payments from "views/payments";
@@ -71,13 +74,14 @@ let routes = [
   },
 ];
 if (role==="admin"){
+  routes = []
   routes.push(
     {
       name: "Main Dashboard",
       layout: "/admin",
       path: "/default",
       role:"admin",
-      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+      icon: <Icon as={AiOutlineMedicineBox} width='20px' height='20px' color='inherit' />,
       component: MainDashboard,
     },
     
@@ -166,7 +170,11 @@ if (role==="admin"){
     },
         
   )
+
+    
+  console.log("routes",routes)
 }else if (role ==="customer"){
+  routes = []
   routes.push(
     {
       name: "Users",
@@ -204,6 +212,7 @@ if (role==="admin"){
 
 }
 else if (role ==="employe"){
+  routes = []
   routes.push(
   
     {
@@ -226,139 +235,5 @@ else if (role ==="employe"){
   )
   
 }
-const routes1 = [
-  {
-    name: "Main Dashboard",
-    layout: "/admin",
-    path: "/default",
-    role:"admin",
-    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-    component: MainDashboard,
-  },
-
-  {
-    name: "Payments",
-    layout: "/admin",
-    path: "/payments",
-    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-    component: Payments,
-  },
-  
-  {
-    name: "UserList",
-    layout: "/admin",
-    path: "/userlist",
-    role:"admin",
-    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-    component: UserList,
-  },
-  
-  
-  
-  {
-    name: "AddVehicule",
-    layout: "/admin",
-    path: "/addvehicule",
-    role:"admin",
-    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-    component: AddVehicule,
-  },
-
-
-  {
-    name: "BecomeMember",
-    layout: "/auth",
-    path: "/becomemember",
-    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-    component: BecomeMember,
-  },
-  {
-    name: "VehiculeList",
-    layout: "/admin",
-    path: "/vehiculelist",
-    role:"admin",
-    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-    component: VehiculeList,
-  },
-  {
-    name: "Transactions",
-    layout: "/admin",
-      path: "/transactions",
-    role:"admin",
-    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-    component: Transactions,
-  },
-  {
-    name: "DriverList",
-    layout: "/admin",
-    path: "/driverlist",
-    role:"admin",
-    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-    component: DriverList,
-  },
-  {
-    name: "CreateDriver",
-    layout: "/admin",
-    path: "/createdriver",
-    role:"admin",
-    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-    component: CreateDriver,
-  },
-  
-
-  {
-    name: "Create User",
-    layout: "/admin",
-    path: "/createuser",
-    role:"admin",
-    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-    component: CreateUser,
-
-  },
-  {
-    name: "Create Employe",
-    layout: "/admin",
-    icon: <Icon as={MdBarChart} width='20px' height='20px' color='inherit' />,
-    path: "/createmploye ",
-    role:"admin",
-    component: CreateEmpolye,
-  },
-  {
-    name: "Profile",
-    layout: "/admin",
-    path: "/profile",
-    icon: <Icon as={MdPerson} width='20px' height='20px' color='inherit' />,
-    component: Profile,
-  },
-  {
-    name: "Sign In",
-    layout: "/auth",
-    path: "/sign-in",
-    icon: <Icon as={MdLock} width='20px' height='20px' color='inherit' />,
-    component: SignInCentered,
-  },
-  {
-    name: "Sign Up",
-    layout: "/auth",
-    path: "/sign-up",
-    icon: <Icon as={MdLock} width='20px' height='20px' color='inherit' />,
-    component: SignUpCentred,
-  },
-  {
-    name: "RTL Admin",
-    layout: "/rtl",
-    path: "/rtl-default",
-    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-    component: RTL,
-  },
-  {
-    name: "Transactions",
-    layout: "/admin",
-    path: "/transactions",
-    role:"admin",
-    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-    component: Transactions,
-  },
-];
 
 export default routes;

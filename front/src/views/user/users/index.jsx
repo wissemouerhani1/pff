@@ -24,14 +24,12 @@ import {
   MdFileCopy,
   
 } from "react-icons/md";
-import{
-  BsPerson,
-  CiDeliveryTruck,
-  BsPersonBoundingBox,
-  BsFillCarFrontFill,
+import { LuPackageX,LuPackageCheck,LuWarehouse } from "react-icons/lu";
 
+import{
+   BiPackage,
 }
-from "react-icons/bs";
+from "react-icons/bi";
 import axios from "axios";
 
 export default function UserReports() {
@@ -57,7 +55,7 @@ export default function UserReports() {
               h='56px'
               bg={boxBg}
               icon={
-                <Icon w='32px' h='32px' as={BsPersonBoundingBox} color={brandColor} />
+                <Icon w='32px' h='32px' as={ BiPackage} color={brandColor} />
               }
             />
           }
@@ -71,7 +69,7 @@ export default function UserReports() {
               h='56px'
               bg={boxBg}
               icon={
-                <Icon w='32px' h='32px' as={BsPerson} color={brandColor} />
+                <Icon w='32px' h='32px' as={LuPackageX} color={brandColor} />
               }
             />
           }
@@ -85,7 +83,7 @@ export default function UserReports() {
               h='56px'
               bg={boxBg}
               icon={
-                <Icon w='32px' h='32px' as={MdFileCopy} color={brandColor} />
+                <Icon w='32px' h='32px' as={LuPackageCheck} color={brandColor} />
               }
             />
           }
@@ -100,7 +98,7 @@ export default function UserReports() {
               h='56px'
               bg={boxBg}
               icon={
-                <Icon w='32px' h='32px' as={MdFileCopy} color={brandColor} />
+                <Icon w='32px' h='32px' as={LuWarehouse} color={brandColor} />
               }
             />
           }

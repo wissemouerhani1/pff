@@ -13,7 +13,7 @@ module.exports.createVehicule= async(req,res)=>{
       if (isExisteVehicule){
         return res.status(401).json("Vehicule already exist")
       }
-      
+    
 
       const vehicule = await Vehicule.create({
         vehicule_type,

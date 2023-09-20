@@ -40,6 +40,7 @@ export default function UserReports() {
   const [driverCount,setDriverCount]=useState(0)
   const [vehiculeCount,setVehiculeCount]=useState(0)
   const [customerCount,setCustomerCount]=useState(0)
+  const [CourrierCount,setCourrierCount]=useState(0)
   const [employeCount,setEmpolyeCount]=useState(0)
   useEffect(() => {
     axios.get("http://localhost:3333/driver/getDriverCount").then(res=>{
@@ -63,6 +64,11 @@ export default function UserReports() {
   useEffect(() => {
     axios.get("http://localhost:3333/employe/getEmployeCount").then(res=>{
       setEmpolyeCount(res?.data)
+    })
+  }, [])
+  useEffect(() => {
+    axios.get("http://localhost:3333/courrier/getCourrierCount").then(res=>{
+      setCourrierCount(res?.data)
     })
   }, [])
   
@@ -138,7 +144,7 @@ export default function UserReports() {
             />
           }
           name='Courriers'
-          value='154'
+          value={CourrierCount}
         />
         
       </SimpleGrid>

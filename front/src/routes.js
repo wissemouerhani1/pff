@@ -7,11 +7,12 @@ import {
   MdHome,
   MdLock,
 
-  
+  MdOutlineAssignmentReturn,
+  MdOutlinePermDeviceInformation,
 
 } from "react-icons/md";
 import { AiOutlineMedicineBox } from "react-icons/ai";
-
+import {FcList} from "react-icons/fc";
 // Admin Imports 
 import MainDashboard from "views/admin/default";
 import Profile from "views/admin/profile";
@@ -81,7 +82,7 @@ if (role==="admin"){
       layout: "/admin",
       path: "/default",
       role:"admin",
-      icon: <Icon as={AiOutlineMedicineBox} width='20px' height='20px' color='inherit' />,
+      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
       component: MainDashboard,
     },
     
@@ -92,7 +93,7 @@ if (role==="admin"){
       layout: "/admin",
       path: "/new member",
       role:"admin",
-      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+      icon: <Icon as={AiOutlineMedicineBox} width='20px' height='20px' color='inherit' />,
       component: Newmember,
     },
   
@@ -101,7 +102,7 @@ if (role==="admin"){
     {
       name: "Create Employe",
       layout: "/admin",
-      icon: <Icon as={MdBarChart} width='20px' height='20px' color='inherit' />,
+      icon: <Icon as={AiOutlineMedicineBox} width='20px' height='20px' color='inherit' />,
       path: "/createmploye ",
       role:"admin",
       component: CreateEmpolye,
@@ -111,7 +112,7 @@ if (role==="admin"){
       layout: "/admin",
       path: "/createuser",
       role:"admin",
-      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+      icon: <Icon as={AiOutlineMedicineBox} width='20px' height='20px' color='inherit' />,
       component: CreateUser,
   
     },{
@@ -119,7 +120,7 @@ if (role==="admin"){
       layout: "/admin",
       path: "/createdriver",
       role:"admin",
-      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+      icon: <Icon as={AiOutlineMedicineBox} width='20px' height='20px' color='inherit' />,
       component: CreateDriver,
     },
     {
@@ -127,7 +128,7 @@ if (role==="admin"){
       layout: "/admin",
       path: "/addvehicule",
       role:"admin",
-      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+      icon: <Icon as={AiOutlineMedicineBox} width='20px' height='20px' color='inherit' />,
       component: AddVehicule,
     },
   
@@ -138,7 +139,7 @@ if (role==="admin"){
       layout: "/admin",
       path: "/employelist",
       role:"admin",
-      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+      icon: <Icon as={FcList} width='20px' height='20px' color='inherit' />,
       component: EmployeList,
     },
     
@@ -148,7 +149,7 @@ if (role==="admin"){
       layout: "/admin",
       path: "/userlist",
       role:"admin",
-      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+      icon: <Icon as={FcList} width='20px' height='20px' color='inherit' />,
       component: UserList,
     },
     {
@@ -156,7 +157,7 @@ if (role==="admin"){
       layout: "/admin",
       path: "/vehiculelist",
       role:"admin",
-      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+      icon: <Icon as={FcList} width='20px' height='20px' color='inherit' />,
       component: VehiculeList,
     },
     
@@ -165,7 +166,7 @@ if (role==="admin"){
       layout: "/admin",
       path: "/driverlist",
       role:"admin",
-      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+      icon: <Icon as={FcList} width='20px' height='20px' color='inherit' />,
       component: DriverList,
     },
         
@@ -189,7 +190,7 @@ if (role==="admin"){
       name: "Add Packages",
       layout: "/admin",
       path: "/add_packages",
-      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+      icon: <Icon as={AiOutlineMedicineBox} width='20px' height='20px' color='inherit' />,
       component: AddPackages,
     },
     
@@ -197,14 +198,14 @@ if (role==="admin"){
       name: "ReturnPackages",
       layout: "/admin",
       path: "/returnpackages",
-      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+      icon: <Icon as={MdOutlineAssignmentReturn} width='20px' height='20px' color='inherit' />,
       component: ReturnPackages,
     },
     {
       name: "Courrier Information",
       layout: "/admin",
       path: "/courrier_information",
-      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+      icon: <Icon as={MdOutlinePermDeviceInformation} width='20px' height='20px' color='inherit' />,
       component: CourrierInformation,
     },
     
@@ -229,7 +230,7 @@ else if (role ==="employe"){
       name: " See All Courrier ",
       layout: "/admin",
       path: "/courrier_information",
-      icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+      icon: <Icon as={FcList} width='20px' height='20px' color='inherit' />,
       component: CourrierInformation,
     },
   )
